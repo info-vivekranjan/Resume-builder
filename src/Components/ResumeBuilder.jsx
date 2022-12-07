@@ -11,6 +11,7 @@ import Paper from '@mui/material/Paper';
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import styles from './ResumeBuilder.module.css';
+import { Divider } from "@mui/material";
 
 const steps = [
     "HEADING",
@@ -152,36 +153,65 @@ export default function ResumeBuilder() {
             {
                 activeStep === steps.length ? (
                     <React.Fragment>
-                        <Box style={{ width: '42%', margin: 'auto' }}>
+                        <Box style={{ width: '40%', margin: 'auto' }}>
                             <Button onClick={printDocument}>Download</Button>
                             <Box sx={{ p: '40px' }} ref={inputRef}>
-                                <h1>{query.name || "Name"}</h1>
-                                <h3>{query.jobtitle || "Job Title"}</h3>
-                                <Typography>{query.location || "Location"}</Typography>
-                                <Typography>{query.phone || "Phone"}</Typography>
-                                <Typography>{query.email || "Email"}</Typography>
-                                <br />
-                                <Typography>{query.description || "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)"}</Typography>
-                                <h3>Skills</h3>
-                                <hr />
-                                <ul>
-                                    {addSkill.map((item) => {
-                                        return <li>{item.skill}</li>
-                                    })}
-                                </ul>
-                                <h3>Education</h3>
-                                <hr />
-                                <>
-                                    {
-                                        addEducation.map((item) => {
-                                            return <Box>
-                                                <h4>{item.course}</h4>
-                                                <p>{item.institute}</p>
-                                                <small>{item.coursePeriod}</small>
-                                            </Box>
-                                        })
-                                    }
-                                </>
+                                <Grid container>
+                                    <Grid item xs={12}>
+                                        <h1>{query.name || "Name"}</h1>
+                                        <h4>{query.jobtitle || "Job Title"}</h4>
+                                    </Grid>
+                                    <Grid item xs={9} sx={{ p: '10px' }}>
+                                        <h4>CAREER OBJECTIVE</h4>
+                                        <Divider />
+                                        <Typography>{query.description || "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident."}</Typography>
+
+                                        <h4>EDUCATION</h4>
+                                        <Divider />
+                                        <>
+                                            {
+                                                addEducation.map((item) => {
+                                                    return <Box>
+                                                        <h4>{item.course}</h4>
+                                                        <p>{item.institute}</p>
+                                                        <small>{item.coursePeriod}</small>
+                                                    </Box>
+                                                })
+                                            }
+                                        </>
+                                        <h4>WORK EXPERIENCE</h4>
+                                        <Divider />
+                                        <>
+                                            {
+                                                addWorkExperience.map((item) => {
+                                                    return <Box>
+                                                        <h4>{item.workDesignationAndCompany}</h4>
+                                                        <small>{item.workPeriod}</small>
+                                                        <ul>
+                                                            <li>{item.workDescriptionList1}</li>
+                                                            <li>{item.workDescriptionList2}</li>
+                                                            <li>{item.workDescriptionList3}</li>
+                                                        </ul>
+                                                    </Box>
+                                                })
+                                            }
+                                        </>
+                                    </Grid>
+                                    <Grid item xs={3} sx={{ p: '10px' }}>
+                                        <h4>CONTACT</h4>
+                                        <Divider />
+                                        <Typography>{query.location || "Location"}</Typography>
+                                        <Typography>{query.phone || "Phone"}</Typography>
+                                        <Typography>{query.email || "Email"}</Typography>
+                                        <h4>SKILLS</h4>
+                                        <Divider />
+                                        <ul>
+                                            {addSkill.map((item) => {
+                                                return <li>{item.skill}</li>
+                                            })}
+                                        </ul>
+                                    </Grid>
+                                </Grid>
                             </Box>
                         </Box>
                         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
@@ -384,50 +414,62 @@ export default function ResumeBuilder() {
                             <Grid item xs={6}>
                                 <Box>
                                     <Box sx={{ p: '40px' }} ref={inputRef}>
-                                        <h1>{query.name || "Name"}</h1>
-                                        <h3>{query.jobtitle || "Job Title"}</h3>
-                                        <Typography>{query.location || "Location"}</Typography>
-                                        <Typography>{query.phone || "Phone"}</Typography>
-                                        <Typography>{query.email || "Email"}</Typography>
-                                        <br />
-                                        <Typography>{query.description || "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)"}</Typography>
-                                        <h3>Skills</h3>
-                                        <hr />
-                                        <ul>
-                                            {addSkill.map((item) => {
-                                                return <li>{item.skill}</li>
-                                            })}
-                                        </ul>
-                                        <h3>Education</h3>
-                                        <hr />
-                                        <>
-                                            {
-                                                addEducation.map((item) => {
-                                                    return <Box>
-                                                        <h4>{item.course}</h4>
-                                                        <p>{item.institute}</p>
-                                                        <small>{item.coursePeriod}</small>
-                                                    </Box>
-                                                })
-                                            }
-                                        </>
-                                        <h3>Work Experience</h3>
-                                        <hr />
-                                        <>
-                                            {
-                                                addWorkExperience.map((item) => {
-                                                    return <Box>
-                                                        <h4>{item.workDesignationAndCompany}</h4>
-                                                        <small>{item.workPeriod}</small>
-                                                        <ul>
-                                                            <li>{item.workDescriptionList1}</li>
-                                                            <li>{item.workDescriptionList2}</li>
-                                                            <li>{item.workDescriptionList3}</li>
-                                                        </ul>
-                                                    </Box>
-                                                })
-                                            }
-                                        </>
+                                        <Grid container>
+                                            <Grid item xs={12}>
+                                                <h1>{query.name || "Name"}</h1>
+                                                <h4>{query.jobtitle || "Job Title"}</h4>
+                                            </Grid>
+                                            <Grid item xs={9} sx={{ p: '10px' }}>
+                                                <h4>CAREER OBJECTIVE</h4>
+                                                <Divider />
+                                                <Typography>{query.description || "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident."}</Typography>
+
+                                                <h4>EDUCATION</h4>
+                                                <Divider />
+                                                <>
+                                                    {
+                                                        addEducation.map((item) => {
+                                                            return <Box>
+                                                                <h4>{item.course}</h4>
+                                                                <p>{item.institute}</p>
+                                                                <small>{item.coursePeriod}</small>
+                                                            </Box>
+                                                        })
+                                                    }
+                                                </>
+                                                <h4>WORK EXPERIENCE</h4>
+                                                <Divider />
+                                                <>
+                                                    {
+                                                        addWorkExperience.map((item) => {
+                                                            return <Box>
+                                                                <h4>{item.workDesignationAndCompany}</h4>
+                                                                <small>{item.workPeriod}</small>
+                                                                <ul>
+                                                                    <li>{item.workDescriptionList1}</li>
+                                                                    <li>{item.workDescriptionList2}</li>
+                                                                    <li>{item.workDescriptionList3}</li>
+                                                                </ul>
+                                                            </Box>
+                                                        })
+                                                    }
+                                                </>
+                                            </Grid>
+                                            <Grid item xs={3} sx={{ p: '10px' }}>
+                                                <h4>CONTACT</h4>
+                                                <Divider />
+                                                <Typography>{query.location || "Location"}</Typography>
+                                                <Typography>{query.phone || "Phone"}</Typography>
+                                                <Typography>{query.email || "Email"}</Typography>
+                                                <h4>SKILLS</h4>
+                                                <Divider />
+                                                <ul>
+                                                    {addSkill.map((item) => {
+                                                        return <li>{item.skill}</li>
+                                                    })}
+                                                </ul>
+                                            </Grid>
+                                        </Grid>
                                     </Box>
                                 </Box>
                             </Grid>
