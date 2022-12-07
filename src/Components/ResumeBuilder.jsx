@@ -27,12 +27,18 @@ const initState = {
     phone: "",
     email: "",
     location: "",
+    skills: "",
+    course: "",
+    institute: "",
+    coursePeriod: "",
 }
 export default function ResumeBuilder() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
     const [query, setQuery] = React.useState(initState);
     const inputRef = React.useRef(null);
+    const [addSkill, setAddSkill] = React.useState([]);
+    const [addEducation, setAddEducation] = React.useState([]);
 
     const handleQueryChange = (e) => {
         const { name, value } = e.target;
@@ -85,9 +91,24 @@ export default function ResumeBuilder() {
             const imgData = canvas.toDataURL("image/png");
             const pdf = new jsPDF();
             pdf.addImage(imgData, "JPEG", 0, 0);
-            pdf.save("download.pdf");
+            pdf.save("resume.pdf");
         });
     };
+
+    const handleAddSkills = () => {
+        let payload = {
+            skill: query.skills
+        }
+        setAddSkill([...addSkill, payload]);
+    }
+    const handleAddEducation = () => {
+        let payload = {
+            course: query.course,
+            institute: query.institute,
+            coursePeriod: query.coursePeriod
+        }
+        setAddEducation([...addEducation, payload])
+    }
     console.log(query);
     return (
         <Box sx={{ width: "100%" }}>
@@ -114,9 +135,38 @@ export default function ResumeBuilder() {
             {
                 activeStep === steps.length ? (
                     <React.Fragment>
-                        <Typography sx={{ mt: 2, mb: 1 }}>
-                            All steps completed - you&apos;re finished
-                        </Typography>
+                        <Box style={{ width: '42%', margin: 'auto' }}>
+                            <Button onClick={printDocument}>Download</Button>
+                            <Box sx={{ p: '40px' }} ref={inputRef}>
+                                <h1>{query.name || "Name"}</h1>
+                                <h3>{query.jobtitle || "Job Title"}</h3>
+                                <Typography>{query.location || "Location"}</Typography>
+                                <Typography>{query.phone || "Phone"}</Typography>
+                                <Typography>{query.email || "Email"}</Typography>
+                                <br />
+                                <Typography>{query.description || "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)"}</Typography>
+                                <h3>Skills</h3>
+                                <hr />
+                                <ul>
+                                    {addSkill.map((item) => {
+                                        return <li>{item.skill}</li>
+                                    })}
+                                </ul>
+                                <h3>Education</h3>
+                                <hr />
+                                <>
+                                    {
+                                        addEducation.map((item) => {
+                                            return <Box>
+                                                <h4>{item.course}</h4>
+                                                <p>{item.institute}</p>
+                                                <small>{item.coursePeriod}</small>
+                                            </Box>
+                                        })
+                                    }
+                                </>
+                            </Box>
+                        </Box>
                         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                             <Box sx={{ flex: "1 1 auto" }} />
                             <Button onClick={handleReset}>Reset</Button>
@@ -189,7 +239,6 @@ export default function ResumeBuilder() {
                                         </Box>
                                         <br />
                                         <br />
-
                                     </Box>
                                 }
                                 {
@@ -201,20 +250,65 @@ export default function ResumeBuilder() {
                                 {
                                     activeStep == 2 &&
                                     <Box sx={{ mt: 2, mb: 1 }}>
-                                        Steps 3
+                                        <Box
+                                            sx={{
+                                                width: 500,
+                                                maxWidth: '100%',
+                                            }}
+                                        >
+                                            <TextField fullWidth placeholder='Course' name='course' onChange={handleQueryChange} label="Course" id="course" />
+                                        </Box>
+                                        <br />
+                                        <br />
+                                        <Box
+                                            sx={{
+                                                width: 500,
+                                                maxWidth: '100%',
+                                            }}
+                                        >
+                                            <TextField fullWidth placeholder='Institute' name='institute' onChange={handleQueryChange} label="Institute" id="institute" />
+                                        </Box>
+                                        <br />
+                                        <br />
+                                        <Box
+                                            sx={{
+                                                width: 500,
+                                                maxWidth: '100%',
+                                            }}
+                                        >
+                                            <TextField fullWidth placeholder='Course Period' name='coursePeriod' onChange={handleQueryChange} label="Course Period" id="coursePeriod" />
+                                        </Box>
+                                        <br />
+                                        <br />
+                                        <Box>
+                                            <Button onClick={handleAddEducation}>
+                                                Add
+                                            </Button>
+                                        </Box>
                                     </Box>
                                 }
                                 {
                                     activeStep == 3 &&
                                     <Box sx={{ mt: 2, mb: 1 }}>
-                                        Steps 4
+                                        <Box
+                                            sx={{
+                                                width: 500,
+                                                maxWidth: '100%',
+                                            }}
+                                        >
+                                            <TextField fullWidth placeholder='Skills' name='skills' onChange={handleQueryChange} label="Skills" id="skills" />
+                                        </Box>
+                                        <Box>
+                                            <Button onClick={handleAddSkills}>
+                                                Add
+                                            </Button>
+                                        </Box>
                                     </Box>
                                 }
                                 {
                                     activeStep == 4 &&
                                     <Box sx={{ mt: 2, mb: 1 }}>
-                                        Final step
-                                        <button onClick={printDocument}>Print</button>
+                                        <b>Final step: You can't edit your changes after this step.</b>
                                     </Box>
                                 }
                             </Grid>
@@ -228,6 +322,26 @@ export default function ResumeBuilder() {
                                         <Typography>{query.email || "Email"}</Typography>
                                         <br />
                                         <Typography>{query.description || "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)"}</Typography>
+                                        <h3>Skills</h3>
+                                        <hr />
+                                        <ul>
+                                            {addSkill.map((item) => {
+                                                return <li>{item.skill}</li>
+                                            })}
+                                        </ul>
+                                        <h3>Education</h3>
+                                        <hr />
+                                        <>
+                                            {
+                                                addEducation.map((item) => {
+                                                    return <Box>
+                                                        <h4>{item.course}</h4>
+                                                        <p>{item.institute}</p>
+                                                        <small>{item.coursePeriod}</small>
+                                                    </Box>
+                                                })
+                                            }
+                                        </>
                                     </Box>
                                 </Box>
                             </Grid>
