@@ -31,6 +31,11 @@ const initState = {
     course: "",
     institute: "",
     coursePeriod: "",
+    workDesignationAndCompany: "",
+    workPeriod: "",
+    workDescriptionList1: "",
+    workDescriptionList2: "",
+    workDescriptionList3: ""
 }
 export default function ResumeBuilder() {
     const [activeStep, setActiveStep] = React.useState(0);
@@ -39,6 +44,7 @@ export default function ResumeBuilder() {
     const inputRef = React.useRef(null);
     const [addSkill, setAddSkill] = React.useState([]);
     const [addEducation, setAddEducation] = React.useState([]);
+    const [addWorkExperience, setAddWorkExperience] = React.useState([]);
 
     const handleQueryChange = (e) => {
         const { name, value } = e.target;
@@ -108,6 +114,17 @@ export default function ResumeBuilder() {
             coursePeriod: query.coursePeriod
         }
         setAddEducation([...addEducation, payload])
+    }
+    const handleAddWorkExperience = () => {
+        let payload = {
+            workDesignationAndCompany: query.workDesignationAndCompany,
+            workPeriod: query.workPeriod,
+            workDescriptionList1: query.workDescriptionList1,
+            workDescriptionList2: query.workDescriptionList2,
+            workDescriptionList3: query.workDescriptionList3
+        };
+
+        setAddWorkExperience([...addWorkExperience, payload]);
     }
     console.log(query);
     return (
@@ -244,7 +261,59 @@ export default function ResumeBuilder() {
                                 {
                                     activeStep == 1 &&
                                     <Box sx={{ mt: 2, mb: 1 }}>
-                                        Steps 2
+                                        <Box
+                                            sx={{
+                                                width: 500,
+                                                maxWidth: '100%',
+                                            }}
+                                        >
+                                            <TextField fullWidth placeholder='Work Designation/Company' name='workDesignationAndCompany' onChange={handleQueryChange} label="Work Designation/Company" id="workDesignationAndCompany" />
+                                        </Box>
+                                        <br />
+                                        <br />
+                                        <Box
+                                            sx={{
+                                                width: 500,
+                                                maxWidth: '100%',
+                                            }}
+                                        >
+                                            <TextField fullWidth placeholder='Work Period' name='workPeriod' onChange={handleQueryChange} label="Work Period" id="workPeriod" />
+                                        </Box>
+                                        <br />
+                                        <br />
+                                        <Box
+                                            sx={{
+                                                width: 500,
+                                                maxWidth: '100%',
+                                            }}
+                                        >
+                                            <TextField fullWidth placeholder='Work Description List1' name='workDescriptionList1' onChange={handleQueryChange} label="Work Description List1" id="workDescriptionList1" />
+                                        </Box>
+                                        <br />
+                                        <br />
+                                        <Box
+                                            sx={{
+                                                width: 500,
+                                                maxWidth: '100%',
+                                            }}
+                                        >
+                                            <TextField fullWidth placeholder='Work Description List2' name='workDescriptionList2' onChange={handleQueryChange} label="Work Description List2" id="workDescriptionList2" />
+                                        </Box>
+                                        <br />
+                                        <br />
+                                        <Box
+                                            sx={{
+                                                width: 500,
+                                                maxWidth: '100%',
+                                            }}
+                                        >
+                                            <TextField fullWidth placeholder='Work Description List3' name='workDescriptionList3' onChange={handleQueryChange} label="Work Description List3" id="workDescriptionList3" />
+                                        </Box>
+                                        <br />
+                                        <br />
+                                        <Box>
+                                            <Button onClick={handleAddWorkExperience}>Add</Button>
+                                        </Box>
                                     </Box>
                                 }
                                 {
@@ -338,6 +407,23 @@ export default function ResumeBuilder() {
                                                         <h4>{item.course}</h4>
                                                         <p>{item.institute}</p>
                                                         <small>{item.coursePeriod}</small>
+                                                    </Box>
+                                                })
+                                            }
+                                        </>
+                                        <h3>Work Experience</h3>
+                                        <hr />
+                                        <>
+                                            {
+                                                addWorkExperience.map((item) => {
+                                                    return <Box>
+                                                        <h4>{item.workDesignationAndCompany}</h4>
+                                                        <small>{item.workPeriod}</small>
+                                                        <ul>
+                                                            <li>{item.workDescriptionList1}</li>
+                                                            <li>{item.workDescriptionList2}</li>
+                                                            <li>{item.workDescriptionList3}</li>
+                                                        </ul>
                                                     </Box>
                                                 })
                                             }
