@@ -10,8 +10,9 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
-import styles from './ResumeBuilder.module.css';
+import './ResumeBuilder.css';
 import { Divider } from "@mui/material";
+import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 
 const steps = [
     "HEADING",
@@ -158,20 +159,20 @@ export default function ResumeBuilder() {
                             <Box sx={{ p: '40px' }} ref={inputRef}>
                                 <Grid container>
                                     <Grid item xs={12}>
-                                        <h1>{query.name || "Name"}</h1>
-                                        <h4>{query.jobtitle || "Job Title"}</h4>
+                                        <h1 className="nameHead">{query.name || "Name"}</h1>
+                                        <h4 className="jobTitleClass">{query.jobtitle || "Job Title"}</h4>
                                     </Grid>
                                     <Grid item xs={9} sx={{ p: '10px' }}>
-                                        <h4>CAREER OBJECTIVE</h4>
+                                        <h4 className="subHeadingsTitle">CAREER OBJECTIVE</h4>
                                         <Divider />
                                         <Typography>{query.description || "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident."}</Typography>
 
-                                        <h4>EDUCATION</h4>
+                                        <h4 className="subHeadingsTitle">EDUCATION</h4>
                                         <Divider />
                                         <>
                                             {
                                                 addEducation.map((item) => {
-                                                    return <Box>
+                                                    return <Box className="educationBox">
                                                         <h4>{item.course}</h4>
                                                         <p>{item.institute}</p>
                                                         <small>{item.coursePeriod}</small>
@@ -179,12 +180,12 @@ export default function ResumeBuilder() {
                                                 })
                                             }
                                         </>
-                                        <h4>WORK EXPERIENCE</h4>
+                                        <h4 className="subHeadingsTitle">WORK EXPERIENCE</h4>
                                         <Divider />
                                         <>
                                             {
                                                 addWorkExperience.map((item) => {
-                                                    return <Box>
+                                                    return <Box className="workexBox">
                                                         <h4>{item.workDesignationAndCompany}</h4>
                                                         <small>{item.workPeriod}</small>
                                                         <ul>
@@ -198,12 +199,12 @@ export default function ResumeBuilder() {
                                         </>
                                     </Grid>
                                     <Grid item xs={3} sx={{ p: '10px' }}>
-                                        <h4>CONTACT</h4>
+                                        <h4 className="subHeadingsTitle">CONTACT</h4>
                                         <Divider />
                                         <Typography>{query.location || "Location"}</Typography>
                                         <Typography>{query.phone || "Phone"}</Typography>
                                         <Typography>{query.email || "Email"}</Typography>
-                                        <h4>SKILLS</h4>
+                                        <h4 className="subHeadingsTitle">SKILLS</h4>
                                         <Divider />
                                         <ul>
                                             {addSkill.map((item) => {
@@ -416,20 +417,20 @@ export default function ResumeBuilder() {
                                     <Box sx={{ p: '40px' }} ref={inputRef}>
                                         <Grid container>
                                             <Grid item xs={12}>
-                                                <h1>{query.name || "Name"}</h1>
-                                                <h4>{query.jobtitle || "Job Title"}</h4>
+                                                <h1 className="nameHead">{query.name || "Name"}</h1>
+                                                <h4 className="jobTitleClass">{query.jobtitle || "Job Title"}</h4>
                                             </Grid>
                                             <Grid item xs={9} sx={{ p: '10px' }}>
-                                                <h4>CAREER OBJECTIVE</h4>
+                                                <h4 className="subHeadingsTitle">CAREER OBJECTIVE</h4>
                                                 <Divider />
                                                 <Typography>{query.description || "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident."}</Typography>
 
-                                                <h4>EDUCATION</h4>
+                                                <h4 className="subHeadingsTitle">EDUCATION</h4>
                                                 <Divider />
                                                 <>
                                                     {
                                                         addEducation.map((item) => {
-                                                            return <Box>
+                                                            return <Box className="educationBox">
                                                                 <h4>{item.course}</h4>
                                                                 <p>{item.institute}</p>
                                                                 <small>{item.coursePeriod}</small>
@@ -437,12 +438,12 @@ export default function ResumeBuilder() {
                                                         })
                                                     }
                                                 </>
-                                                <h4>WORK EXPERIENCE</h4>
+                                                <h4 className="subHeadingsTitle">WORK EXPERIENCE</h4>
                                                 <Divider />
                                                 <>
                                                     {
                                                         addWorkExperience.map((item) => {
-                                                            return <Box>
+                                                            return <Box className="workexBox">
                                                                 <h4>{item.workDesignationAndCompany}</h4>
                                                                 <small>{item.workPeriod}</small>
                                                                 <ul>
@@ -456,12 +457,12 @@ export default function ResumeBuilder() {
                                                 </>
                                             </Grid>
                                             <Grid item xs={3} sx={{ p: '10px' }}>
-                                                <h4>CONTACT</h4>
+                                                <h4 className="subHeadingsTitle">CONTACT</h4>
                                                 <Divider />
                                                 <Typography>{query.location || "Location"}</Typography>
                                                 <Typography>{query.phone || "Phone"}</Typography>
                                                 <Typography>{query.email || "Email"}</Typography>
-                                                <h4>SKILLS</h4>
+                                                <h4 className="subHeadingsTitle">SKILLS</h4>
                                                 <Divider />
                                                 <ul>
                                                     {addSkill.map((item) => {
