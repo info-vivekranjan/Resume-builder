@@ -164,19 +164,19 @@ export default function ResumeBuilder() {
                             <Button variant="outlined" endIcon={<FileDownloadIcon />} onClick={printDocument}>Download</Button>
                             <Box sx={{ p: '40px' }} ref={inputRef}>
                                 <Grid container>
-                                    <Grid item xs={12}>
+                                    <Grid item xs={12} sx={{ p: '10px' }}>
                                         <h1 className="nameHead">{query.name || "Name"}</h1>
                                         <h4 className="jobTitleClass">{query.jobtitle || "Job Title"}</h4>
                                     </Grid>
                                     <Grid item xs={9} sx={{ p: '10px' }}>
-                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
                                             <TrackChangesIcon />
                                             <Typography className="subHeadingsTitle" variant="body1"><b>CAREER OBJECTIVE</b></Typography>
                                         </Stack>
                                         <Divider />
                                         <Typography>{query.description || "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident."}</Typography>
 
-                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
                                             <SchoolIcon />
                                             <Typography className="subHeadingsTitle" variant="body1"><b>EDUCATION</b></Typography>
                                         </Stack>
@@ -192,7 +192,7 @@ export default function ResumeBuilder() {
                                                 })
                                             }
                                         </>
-                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
                                             <WorkHistoryIcon />
                                             <Typography className="subHeadingsTitle" variant="body1" ><b>WORK EXPERIENCE</b></Typography>
                                         </Stack>
@@ -215,7 +215,7 @@ export default function ResumeBuilder() {
                                         </>
                                     </Grid>
                                     <Grid item xs={3} sx={{ p: '10px' }}>
-                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
                                             <EmailIcon />
                                             <Typography className="subHeadingsTitle" variant="body1"><b>CONTACT</b></Typography>
                                         </Stack>
@@ -223,7 +223,7 @@ export default function ResumeBuilder() {
                                         <Typography>{query.location || "Location"}</Typography>
                                         <Typography>{query.phone || "Phone"}</Typography>
                                         <Typography>{query.email || "Email"}</Typography>
-                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
                                             <ExtensionIcon />
                                             <Typography className="subHeadingsTitle" variant="body1"><b>SKILLS</b></Typography>
                                         </Stack>
@@ -438,19 +438,19 @@ export default function ResumeBuilder() {
                                 <Box>
                                     <Box sx={{ p: '40px' }} ref={inputRef}>
                                         <Grid container>
-                                            <Grid item xs={12}>
+                                            <Grid item xs={12} sx={{ p: '10px' }}>
                                                 <h1 className="nameHead">{query.name || "Name"}</h1>
                                                 <h4 className="jobTitleClass">{query.jobtitle || "Job Title"}</h4>
                                             </Grid>
                                             <Grid item xs={9} sx={{ p: '10px' }}>
-                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
                                                     <TrackChangesIcon />
                                                     <Typography className="subHeadingsTitle" variant="body1"><b>CAREER OBJECTIVE</b></Typography>
                                                 </Stack>
                                                 <Divider />
                                                 <Typography>{query.description || "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident."}</Typography>
 
-                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
                                                     <SchoolIcon />
                                                     <Typography className="subHeadingsTitle" variant="body1"><b>EDUCATION</b></Typography>
                                                 </Stack>
@@ -466,7 +466,7 @@ export default function ResumeBuilder() {
                                                         })
                                                     }
                                                 </>
-                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
                                                     <WorkHistoryIcon />
                                                     <Typography className="subHeadingsTitle" variant="body1" ><b>WORK EXPERIENCE</b></Typography>
                                                 </Stack>
@@ -489,7 +489,7 @@ export default function ResumeBuilder() {
                                                 </>
                                             </Grid>
                                             <Grid item xs={3} sx={{ p: '10px' }}>
-                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
                                                     <EmailIcon />
                                                     <Typography className="subHeadingsTitle" variant="body1"><b>CONTACT</b></Typography>
                                                 </Stack>
@@ -497,7 +497,7 @@ export default function ResumeBuilder() {
                                                 <Typography>{query.location || "Location"}</Typography>
                                                 <Typography>{query.phone || "Phone"}</Typography>
                                                 <Typography>{query.email || "Email"}</Typography>
-                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
                                                     <ExtensionIcon />
                                                     <Typography className="subHeadingsTitle" variant="body1"><b>SKILLS</b></Typography>
                                                 </Stack>
