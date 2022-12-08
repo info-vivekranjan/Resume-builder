@@ -13,6 +13,12 @@ import { jsPDF } from "jspdf";
 import './ResumeBuilder.css';
 import { Divider } from "@mui/material";
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
+import SchoolIcon from '@mui/icons-material/School';
+import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import EmailIcon from '@mui/icons-material/Email';
+import ExtensionIcon from '@mui/icons-material/Extension';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { Stack } from "@mui/system";
 
 const steps = [
     "HEADING",
@@ -155,7 +161,7 @@ export default function ResumeBuilder() {
                 activeStep === steps.length ? (
                     <React.Fragment>
                         <Box style={{ width: '40%', margin: 'auto' }}>
-                            <Button onClick={printDocument}>Download</Button>
+                            <Button variant="outlined" endIcon={<FileDownloadIcon />} onClick={printDocument}>Download</Button>
                             <Box sx={{ p: '40px' }} ref={inputRef}>
                                 <Grid container>
                                     <Grid item xs={12}>
@@ -163,11 +169,17 @@ export default function ResumeBuilder() {
                                         <h4 className="jobTitleClass">{query.jobtitle || "Job Title"}</h4>
                                     </Grid>
                                     <Grid item xs={9} sx={{ p: '10px' }}>
-                                        <h4 className="subHeadingsTitle">CAREER OBJECTIVE</h4>
+                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                            <TrackChangesIcon />
+                                            <Typography className="subHeadingsTitle" variant="body1"><b>CAREER OBJECTIVE</b></Typography>
+                                        </Stack>
                                         <Divider />
                                         <Typography>{query.description || "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident."}</Typography>
 
-                                        <h4 className="subHeadingsTitle">EDUCATION</h4>
+                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                            <SchoolIcon />
+                                            <Typography className="subHeadingsTitle" variant="body1"><b>EDUCATION</b></Typography>
+                                        </Stack>
                                         <Divider />
                                         <>
                                             {
@@ -180,7 +192,11 @@ export default function ResumeBuilder() {
                                                 })
                                             }
                                         </>
-                                        <h4 className="subHeadingsTitle">WORK EXPERIENCE</h4>
+                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                            <WorkHistoryIcon />
+                                            <Typography className="subHeadingsTitle" variant="body1" ><b>WORK EXPERIENCE</b></Typography>
+                                        </Stack>
+
                                         <Divider />
                                         <>
                                             {
@@ -199,12 +215,18 @@ export default function ResumeBuilder() {
                                         </>
                                     </Grid>
                                     <Grid item xs={3} sx={{ p: '10px' }}>
-                                        <h4 className="subHeadingsTitle">CONTACT</h4>
+                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                            <EmailIcon />
+                                            <Typography className="subHeadingsTitle" variant="body1"><b>CONTACT</b></Typography>
+                                        </Stack>
                                         <Divider />
                                         <Typography>{query.location || "Location"}</Typography>
                                         <Typography>{query.phone || "Phone"}</Typography>
                                         <Typography>{query.email || "Email"}</Typography>
-                                        <h4 className="subHeadingsTitle">SKILLS</h4>
+                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                            <ExtensionIcon />
+                                            <Typography className="subHeadingsTitle" variant="body1"><b>SKILLS</b></Typography>
+                                        </Stack>
                                         <Divider />
                                         <ul>
                                             {addSkill.map((item) => {
@@ -217,7 +239,7 @@ export default function ResumeBuilder() {
                         </Box>
                         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                             <Box sx={{ flex: "1 1 auto" }} />
-                            <Button onClick={handleReset}>Reset</Button>
+                            <Button variant="outlined" onClick={handleReset}>Reset</Button>
                         </Box>
                     </React.Fragment>
                 ) : (
@@ -343,7 +365,7 @@ export default function ResumeBuilder() {
                                         <br />
                                         <br />
                                         <Box>
-                                            <Button onClick={handleAddWorkExperience}>Add</Button>
+                                            <Button variant="outlined" onClick={handleAddWorkExperience}>Add</Button>
                                         </Box>
                                     </Box>
                                 }
@@ -381,7 +403,7 @@ export default function ResumeBuilder() {
                                         <br />
                                         <br />
                                         <Box>
-                                            <Button onClick={handleAddEducation}>
+                                            <Button variant="outlined" onClick={handleAddEducation}>
                                                 Add
                                             </Button>
                                         </Box>
@@ -399,7 +421,7 @@ export default function ResumeBuilder() {
                                             <TextField fullWidth placeholder='Skills' name='skills' onChange={handleQueryChange} label="Skills" id="skills" />
                                         </Box>
                                         <Box>
-                                            <Button onClick={handleAddSkills}>
+                                            <Button variant="outlined" onClick={handleAddSkills}>
                                                 Add
                                             </Button>
                                         </Box>
@@ -421,11 +443,17 @@ export default function ResumeBuilder() {
                                                 <h4 className="jobTitleClass">{query.jobtitle || "Job Title"}</h4>
                                             </Grid>
                                             <Grid item xs={9} sx={{ p: '10px' }}>
-                                                <h4 className="subHeadingsTitle">CAREER OBJECTIVE</h4>
+                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                                    <TrackChangesIcon />
+                                                    <Typography className="subHeadingsTitle" variant="body1"><b>CAREER OBJECTIVE</b></Typography>
+                                                </Stack>
                                                 <Divider />
                                                 <Typography>{query.description || "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident."}</Typography>
 
-                                                <h4 className="subHeadingsTitle">EDUCATION</h4>
+                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                                    <SchoolIcon />
+                                                    <Typography className="subHeadingsTitle" variant="body1"><b>EDUCATION</b></Typography>
+                                                </Stack>
                                                 <Divider />
                                                 <>
                                                     {
@@ -438,7 +466,11 @@ export default function ResumeBuilder() {
                                                         })
                                                     }
                                                 </>
-                                                <h4 className="subHeadingsTitle">WORK EXPERIENCE</h4>
+                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                                    <WorkHistoryIcon />
+                                                    <Typography className="subHeadingsTitle" variant="body1" ><b>WORK EXPERIENCE</b></Typography>
+                                                </Stack>
+
                                                 <Divider />
                                                 <>
                                                     {
@@ -457,12 +489,18 @@ export default function ResumeBuilder() {
                                                 </>
                                             </Grid>
                                             <Grid item xs={3} sx={{ p: '10px' }}>
-                                                <h4 className="subHeadingsTitle">CONTACT</h4>
+                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                                    <EmailIcon />
+                                                    <Typography className="subHeadingsTitle" variant="body1"><b>CONTACT</b></Typography>
+                                                </Stack>
                                                 <Divider />
                                                 <Typography>{query.location || "Location"}</Typography>
                                                 <Typography>{query.phone || "Phone"}</Typography>
                                                 <Typography>{query.email || "Email"}</Typography>
-                                                <h4 className="subHeadingsTitle">SKILLS</h4>
+                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" >
+                                                    <ExtensionIcon />
+                                                    <Typography className="subHeadingsTitle" variant="body1"><b>SKILLS</b></Typography>
+                                                </Stack>
                                                 <Divider />
                                                 <ul>
                                                     {addSkill.map((item) => {
@@ -477,6 +515,7 @@ export default function ResumeBuilder() {
                         </Grid>
                         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                             <Button
+                                variant="outlined"
                                 color="inherit"
                                 disabled={activeStep === 0}
                                 onClick={handleBack}
@@ -486,12 +525,12 @@ export default function ResumeBuilder() {
                             </Button>
                             <Box sx={{ flex: "1 1 auto" }} />
                             {isStepOptional(activeStep) && (
-                                <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+                                <Button variant="outlined" color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
                                     Skip
                                 </Button>
                             )}
 
-                            <Button onClick={handleNext}>
+                            <Button variant="outlined" onClick={handleNext}>
                                 {activeStep === steps.length - 1 ? "Finish" : "Next"}
                             </Button>
                         </Box>
