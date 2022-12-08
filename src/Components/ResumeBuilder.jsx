@@ -19,6 +19,9 @@ import EmailIcon from '@mui/icons-material/Email';
 import ExtensionIcon from '@mui/icons-material/Extension';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { Stack } from "@mui/system";
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import CssBaseline from '@mui/material/CssBaseline';
 
 const steps = [
     "HEADING",
@@ -136,407 +139,417 @@ export default function ResumeBuilder() {
     }
     console.log(query);
     return (
-        <Box sx={{ width: "100%" }}>
-            <h1>Resume Builder</h1>
-            <Stepper activeStep={activeStep}>
-                {steps.map((label, index) => {
-                    const stepProps = {};
-                    const labelProps = {};
-                    if (isStepOptional(index)) {
-                        labelProps.optional = (
-                            <Typography variant="caption">Optional</Typography>
+        <>
+            <CssBaseline />
+            <AppBar>
+                <Toolbar>
+                    <Typography variant="h6" component="div">
+                        Resume Builder
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+            <Box sx={{ width: "100%", mt: '100px' }}>
+
+                <Stepper activeStep={activeStep}>
+                    {steps.map((label, index) => {
+                        const stepProps = {};
+                        const labelProps = {};
+                        if (isStepOptional(index)) {
+                            labelProps.optional = (
+                                <Typography variant="caption">Optional</Typography>
+                            );
+                        }
+                        if (isStepSkipped(index)) {
+                            stepProps.completed = false;
+                        }
+                        return (
+                            <Step key={label} {...stepProps}>
+                                <StepLabel {...labelProps}>{label}</StepLabel>
+                            </Step>
                         );
-                    }
-                    if (isStepSkipped(index)) {
-                        stepProps.completed = false;
-                    }
-                    return (
-                        <Step key={label} {...stepProps}>
-                            <StepLabel {...labelProps}>{label}</StepLabel>
-                        </Step>
-                    );
-                })}
-            </Stepper>
-            {
-                activeStep === steps.length ? (
-                    <React.Fragment>
-                        <Box style={{ width: '40%', margin: 'auto' }}>
-                            <Button variant="outlined" endIcon={<FileDownloadIcon />} onClick={printDocument}>Download</Button>
-                            <Box sx={{ p: '40px' }} ref={inputRef}>
-                                <Grid container>
-                                    <Grid item xs={12} sx={{ p: '10px' }}>
-                                        <h1 className="nameHead">{query.name || "Name"}</h1>
-                                        <h4 className="jobTitleClass">{query.jobtitle || "Job Title"}</h4>
-                                    </Grid>
-                                    <Grid item xs={9} sx={{ p: '10px' }}>
-                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
-                                            <TrackChangesIcon />
-                                            <Typography className="subHeadingsTitle" variant="body1"><b>CAREER OBJECTIVE</b></Typography>
-                                        </Stack>
-                                        <Divider />
-                                        <Typography>{query.description || "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident."}</Typography>
-
-                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
-                                            <SchoolIcon />
-                                            <Typography className="subHeadingsTitle" variant="body1"><b>EDUCATION</b></Typography>
-                                        </Stack>
-                                        <Divider />
-                                        <>
-                                            {
-                                                addEducation.map((item) => {
-                                                    return <Box className="educationBox">
-                                                        <h4>{item.course}</h4>
-                                                        <p>{item.institute}</p>
-                                                        <small>{item.coursePeriod}</small>
-                                                    </Box>
-                                                })
-                                            }
-                                        </>
-                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
-                                            <WorkHistoryIcon />
-                                            <Typography className="subHeadingsTitle" variant="body1" ><b>WORK EXPERIENCE</b></Typography>
-                                        </Stack>
-
-                                        <Divider />
-                                        <>
-                                            {
-                                                addWorkExperience.map((item) => {
-                                                    return <Box className="workexBox">
-                                                        <h4>{item.workDesignationAndCompany}</h4>
-                                                        <small>{item.workPeriod}</small>
-                                                        <ul>
-                                                            <li>{item.workDescriptionList1}</li>
-                                                            <li>{item.workDescriptionList2}</li>
-                                                            <li>{item.workDescriptionList3}</li>
-                                                        </ul>
-                                                    </Box>
-                                                })
-                                            }
-                                        </>
-                                    </Grid>
-                                    <Grid item xs={3} sx={{ p: '10px' }}>
-                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
-                                            <EmailIcon />
-                                            <Typography className="subHeadingsTitle" variant="body1"><b>CONTACT</b></Typography>
-                                        </Stack>
-                                        <Divider />
-                                        <Typography>{query.location || "Location"}</Typography>
-                                        <Typography>{query.phone || "Phone"}</Typography>
-                                        <Typography>{query.email || "Email"}</Typography>
-                                        <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
-                                            <ExtensionIcon />
-                                            <Typography className="subHeadingsTitle" variant="body1"><b>SKILLS</b></Typography>
-                                        </Stack>
-                                        <Divider />
-                                        <ul>
-                                            {addSkill.map((item) => {
-                                                return <li>{item.skill}</li>
-                                            })}
-                                        </ul>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </Box>
-                        <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                            <Box sx={{ flex: "1 1 auto" }} />
-                            <Button variant="outlined" onClick={handleReset}>Reset</Button>
-                        </Box>
-                    </React.Fragment>
-                ) : (
-                    <React.Fragment>
-                        <Grid container>
-                            <Grid item xs={6}>
-                                {
-                                    activeStep == 0 &&
-                                    <Box sx={{ mt: 2, mb: 1 }}>
-                                        <Box
-                                            sx={{
-                                                width: 500,
-                                                maxWidth: '100%',
-                                            }}
-                                        >
-                                            <TextField fullWidth placeholder='Name' name='name' onChange={handleQueryChange} label="Name" id="name" />
-                                        </Box>
-                                        <br />
-                                        <br />
-                                        <Box
-                                            sx={{
-                                                width: 500,
-                                                maxWidth: '100%',
-                                            }}
-                                        >
-                                            <TextField fullWidth placeholder='Job title' name='jobtitle' onChange={handleQueryChange} label="Job title" id="jobtitle" />
-                                        </Box>
-                                        <br />
-                                        <br />
-                                        <Box
-                                            sx={{
-                                                width: 500,
-                                                maxWidth: '100%',
-                                            }}
-                                        >
-                                            <TextField fullWidth placeholder='Description' name='description' onChange={handleQueryChange} label="Description" id="description" />
-                                        </Box>
-                                        <br />
-                                        <br />
-                                        <Box
-                                            sx={{
-                                                width: 500,
-                                                maxWidth: '100%',
-                                            }}
-                                        >
-                                            <TextField fullWidth placeholder='Phone' name='phone' onChange={handleQueryChange} label="Phone" id="phone" />
-                                        </Box>
-                                        <br />
-                                        <br />
-                                        <Box
-                                            sx={{
-                                                width: 500,
-                                                maxWidth: '100%',
-                                            }}
-                                        >
-                                            <TextField fullWidth placeholder='Email' name='email' onChange={handleQueryChange} label="Email" id="email" />
-                                        </Box>
-                                        <br />
-                                        <br />
-                                        <Box
-                                            sx={{
-                                                width: 500,
-                                                maxWidth: '100%',
-                                            }}
-                                        >
-                                            <TextField fullWidth placeholder='Location' name='location' onChange={handleQueryChange} label="Location" id="location" />
-                                        </Box>
-                                        <br />
-                                        <br />
-                                    </Box>
-                                }
-                                {
-                                    activeStep == 1 &&
-                                    <Box sx={{ mt: 2, mb: 1 }}>
-                                        <Box
-                                            sx={{
-                                                width: 500,
-                                                maxWidth: '100%',
-                                            }}
-                                        >
-                                            <TextField fullWidth placeholder='Work Designation/Company' name='workDesignationAndCompany' onChange={handleQueryChange} label="Work Designation/Company" id="workDesignationAndCompany" />
-                                        </Box>
-                                        <br />
-                                        <br />
-                                        <Box
-                                            sx={{
-                                                width: 500,
-                                                maxWidth: '100%',
-                                            }}
-                                        >
-                                            <TextField fullWidth placeholder='Work Period' name='workPeriod' onChange={handleQueryChange} label="Work Period" id="workPeriod" />
-                                        </Box>
-                                        <br />
-                                        <br />
-                                        <Box
-                                            sx={{
-                                                width: 500,
-                                                maxWidth: '100%',
-                                            }}
-                                        >
-                                            <TextField fullWidth placeholder='Work Description List1' name='workDescriptionList1' onChange={handleQueryChange} label="Work Description List1" id="workDescriptionList1" />
-                                        </Box>
-                                        <br />
-                                        <br />
-                                        <Box
-                                            sx={{
-                                                width: 500,
-                                                maxWidth: '100%',
-                                            }}
-                                        >
-                                            <TextField fullWidth placeholder='Work Description List2' name='workDescriptionList2' onChange={handleQueryChange} label="Work Description List2" id="workDescriptionList2" />
-                                        </Box>
-                                        <br />
-                                        <br />
-                                        <Box
-                                            sx={{
-                                                width: 500,
-                                                maxWidth: '100%',
-                                            }}
-                                        >
-                                            <TextField fullWidth placeholder='Work Description List3' name='workDescriptionList3' onChange={handleQueryChange} label="Work Description List3" id="workDescriptionList3" />
-                                        </Box>
-                                        <br />
-                                        <br />
-                                        <Box>
-                                            <Button variant="outlined" onClick={handleAddWorkExperience}>Add</Button>
-                                        </Box>
-                                    </Box>
-                                }
-                                {
-                                    activeStep == 2 &&
-                                    <Box sx={{ mt: 2, mb: 1 }}>
-                                        <Box
-                                            sx={{
-                                                width: 500,
-                                                maxWidth: '100%',
-                                            }}
-                                        >
-                                            <TextField fullWidth placeholder='Course' name='course' onChange={handleQueryChange} label="Course" id="course" />
-                                        </Box>
-                                        <br />
-                                        <br />
-                                        <Box
-                                            sx={{
-                                                width: 500,
-                                                maxWidth: '100%',
-                                            }}
-                                        >
-                                            <TextField fullWidth placeholder='Institute' name='institute' onChange={handleQueryChange} label="Institute" id="institute" />
-                                        </Box>
-                                        <br />
-                                        <br />
-                                        <Box
-                                            sx={{
-                                                width: 500,
-                                                maxWidth: '100%',
-                                            }}
-                                        >
-                                            <TextField fullWidth placeholder='Course Period' name='coursePeriod' onChange={handleQueryChange} label="Course Period" id="coursePeriod" />
-                                        </Box>
-                                        <br />
-                                        <br />
-                                        <Box>
-                                            <Button variant="outlined" onClick={handleAddEducation}>
-                                                Add
-                                            </Button>
-                                        </Box>
-                                    </Box>
-                                }
-                                {
-                                    activeStep == 3 &&
-                                    <Box sx={{ mt: 2, mb: 1 }}>
-                                        <Box
-                                            sx={{
-                                                width: 500,
-                                                maxWidth: '100%',
-                                            }}
-                                        >
-                                            <TextField fullWidth placeholder='Skills' name='skills' onChange={handleQueryChange} label="Skills" id="skills" />
-                                        </Box>
-                                        <Box>
-                                            <Button variant="outlined" onClick={handleAddSkills}>
-                                                Add
-                                            </Button>
-                                        </Box>
-                                    </Box>
-                                }
-                                {
-                                    activeStep == 4 &&
-                                    <Box sx={{ mt: 2, mb: 1 }}>
-                                        <b>Final step: You can't edit your changes after this step.</b>
-                                    </Box>
-                                }
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Box>
-                                    <Box sx={{ p: '40px' }} ref={inputRef}>
-                                        <Grid container>
-                                            <Grid item xs={12} sx={{ p: '10px' }}>
-                                                <h1 className="nameHead">{query.name || "Name"}</h1>
-                                                <h4 className="jobTitleClass">{query.jobtitle || "Job Title"}</h4>
-                                            </Grid>
-                                            <Grid item xs={9} sx={{ p: '10px' }}>
-                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
-                                                    <TrackChangesIcon />
-                                                    <Typography className="subHeadingsTitle" variant="body1"><b>CAREER OBJECTIVE</b></Typography>
-                                                </Stack>
-                                                <Divider />
-                                                <Typography>{query.description || "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident."}</Typography>
-
-                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
-                                                    <SchoolIcon />
-                                                    <Typography className="subHeadingsTitle" variant="body1"><b>EDUCATION</b></Typography>
-                                                </Stack>
-                                                <Divider />
-                                                <>
-                                                    {
-                                                        addEducation.map((item) => {
-                                                            return <Box className="educationBox">
-                                                                <h4>{item.course}</h4>
-                                                                <p>{item.institute}</p>
-                                                                <small>{item.coursePeriod}</small>
-                                                            </Box>
-                                                        })
-                                                    }
-                                                </>
-                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
-                                                    <WorkHistoryIcon />
-                                                    <Typography className="subHeadingsTitle" variant="body1" ><b>WORK EXPERIENCE</b></Typography>
-                                                </Stack>
-
-                                                <Divider />
-                                                <>
-                                                    {
-                                                        addWorkExperience.map((item) => {
-                                                            return <Box className="workexBox">
-                                                                <h4>{item.workDesignationAndCompany}</h4>
-                                                                <small>{item.workPeriod}</small>
-                                                                <ul>
-                                                                    <li>{item.workDescriptionList1}</li>
-                                                                    <li>{item.workDescriptionList2}</li>
-                                                                    <li>{item.workDescriptionList3}</li>
-                                                                </ul>
-                                                            </Box>
-                                                        })
-                                                    }
-                                                </>
-                                            </Grid>
-                                            <Grid item xs={3} sx={{ p: '10px' }}>
-                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
-                                                    <EmailIcon />
-                                                    <Typography className="subHeadingsTitle" variant="body1"><b>CONTACT</b></Typography>
-                                                </Stack>
-                                                <Divider />
-                                                <Typography>{query.location || "Location"}</Typography>
-                                                <Typography>{query.phone || "Phone"}</Typography>
-                                                <Typography>{query.email || "Email"}</Typography>
-                                                <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
-                                                    <ExtensionIcon />
-                                                    <Typography className="subHeadingsTitle" variant="body1"><b>SKILLS</b></Typography>
-                                                </Stack>
-                                                <Divider />
-                                                <ul>
-                                                    {addSkill.map((item) => {
-                                                        return <li>{item.skill}</li>
-                                                    })}
-                                                </ul>
-                                            </Grid>
+                    })}
+                </Stepper>
+                {
+                    activeStep === steps.length ? (
+                        <React.Fragment>
+                            <Box style={{ width: '40%', margin: 'auto' }}>
+                                <Button variant="outlined" endIcon={<FileDownloadIcon />} onClick={printDocument}>Download</Button>
+                                <Box sx={{ p: '40px' }} ref={inputRef}>
+                                    <Grid container>
+                                        <Grid item xs={12} sx={{ p: '10px' }}>
+                                            <h1 className="nameHead">{query.name || "Name"}</h1>
+                                            <h4 className="jobTitleClass">{query.jobtitle || "Job Title"}</h4>
                                         </Grid>
-                                    </Box>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                        <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                            <Button
-                                variant="outlined"
-                                color="inherit"
-                                disabled={activeStep === 0}
-                                onClick={handleBack}
-                                sx={{ mr: 1 }}
-                            >
-                                Back
-                            </Button>
-                            <Box sx={{ flex: "1 1 auto" }} />
-                            {isStepOptional(activeStep) && (
-                                <Button variant="outlined" color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                                    Skip
-                                </Button>
-                            )}
+                                        <Grid item xs={9} sx={{ p: '10px' }}>
+                                            <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
+                                                <TrackChangesIcon />
+                                                <Typography className="subHeadingsTitle" variant="body1"><b>CAREER OBJECTIVE</b></Typography>
+                                            </Stack>
+                                            <Divider />
+                                            <Typography>{query.description || "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident."}</Typography>
 
-                            <Button variant="outlined" onClick={handleNext}>
-                                {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                            </Button>
-                        </Box>
-                    </React.Fragment>
-                )
-            }
-        </Box >
+                                            <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
+                                                <SchoolIcon />
+                                                <Typography className="subHeadingsTitle" variant="body1"><b>EDUCATION</b></Typography>
+                                            </Stack>
+                                            <Divider />
+                                            <>
+                                                {
+                                                    addEducation.map((item) => {
+                                                        return <Box className="educationBox">
+                                                            <h4>{item.course}</h4>
+                                                            <p>{item.institute}</p>
+                                                            <small>{item.coursePeriod}</small>
+                                                        </Box>
+                                                    })
+                                                }
+                                            </>
+                                            <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
+                                                <WorkHistoryIcon />
+                                                <Typography className="subHeadingsTitle" variant="body1" ><b>WORK EXPERIENCE</b></Typography>
+                                            </Stack>
+
+                                            <Divider />
+                                            <>
+                                                {
+                                                    addWorkExperience.map((item) => {
+                                                        return <Box className="workexBox">
+                                                            <h4>{item.workDesignationAndCompany}</h4>
+                                                            <small>{item.workPeriod}</small>
+                                                            <ul>
+                                                                <li>{item.workDescriptionList1}</li>
+                                                                <li>{item.workDescriptionList2}</li>
+                                                                <li>{item.workDescriptionList3}</li>
+                                                            </ul>
+                                                        </Box>
+                                                    })
+                                                }
+                                            </>
+                                        </Grid>
+                                        <Grid item xs={3} sx={{ p: '10px' }}>
+                                            <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
+                                                <EmailIcon />
+                                                <Typography className="subHeadingsTitle" variant="body1"><b>CONTACT</b></Typography>
+                                            </Stack>
+                                            <Divider />
+                                            <Typography>{query.location || "Location"}</Typography>
+                                            <Typography>{query.phone || "Phone"}</Typography>
+                                            <Typography>{query.email || "Email"}</Typography>
+                                            <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
+                                                <ExtensionIcon />
+                                                <Typography className="subHeadingsTitle" variant="body1"><b>SKILLS</b></Typography>
+                                            </Stack>
+                                            <Divider />
+                                            <ul>
+                                                {addSkill.map((item) => {
+                                                    return <li>{item.skill}</li>
+                                                })}
+                                            </ul>
+                                        </Grid>
+                                    </Grid>
+                                </Box>
+                            </Box>
+                            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+                                <Box sx={{ flex: "1 1 auto" }} />
+                                <Button variant="outlined" onClick={handleReset}>Reset</Button>
+                            </Box>
+                        </React.Fragment>
+                    ) : (
+                        <React.Fragment>
+                            <Grid container>
+                                <Grid item xs={6}>
+                                    {
+                                        activeStep == 0 &&
+                                        <Box sx={{ mt: 2, mb: 1 }}>
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Name' name='name' onChange={handleQueryChange} label="Name" id="name" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Job title' name='jobtitle' onChange={handleQueryChange} label="Job title" id="jobtitle" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Description' name='description' onChange={handleQueryChange} label="Description" id="description" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Phone' name='phone' onChange={handleQueryChange} label="Phone" id="phone" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Email' name='email' onChange={handleQueryChange} label="Email" id="email" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Location' name='location' onChange={handleQueryChange} label="Location" id="location" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                        </Box>
+                                    }
+                                    {
+                                        activeStep == 1 &&
+                                        <Box sx={{ mt: 2, mb: 1 }}>
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Work Designation/Company' name='workDesignationAndCompany' onChange={handleQueryChange} label="Work Designation/Company" id="workDesignationAndCompany" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Work Period' name='workPeriod' onChange={handleQueryChange} label="Work Period" id="workPeriod" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Work Description List1' name='workDescriptionList1' onChange={handleQueryChange} label="Work Description List1" id="workDescriptionList1" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Work Description List2' name='workDescriptionList2' onChange={handleQueryChange} label="Work Description List2" id="workDescriptionList2" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Work Description List3' name='workDescriptionList3' onChange={handleQueryChange} label="Work Description List3" id="workDescriptionList3" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box>
+                                                <Button variant="outlined" onClick={handleAddWorkExperience}>Add</Button>
+                                            </Box>
+                                        </Box>
+                                    }
+                                    {
+                                        activeStep == 2 &&
+                                        <Box sx={{ mt: 2, mb: 1 }}>
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Course' name='course' onChange={handleQueryChange} label="Course" id="course" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Institute' name='institute' onChange={handleQueryChange} label="Institute" id="institute" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Course Period' name='coursePeriod' onChange={handleQueryChange} label="Course Period" id="coursePeriod" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box>
+                                                <Button variant="outlined" onClick={handleAddEducation}>
+                                                    Add
+                                                </Button>
+                                            </Box>
+                                        </Box>
+                                    }
+                                    {
+                                        activeStep == 3 &&
+                                        <Box sx={{ mt: 2, mb: 1 }}>
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Skills' name='skills' onChange={handleQueryChange} label="Skills" id="skills" />
+                                            </Box>
+                                            <Box>
+                                                <Button variant="outlined" onClick={handleAddSkills}>
+                                                    Add
+                                                </Button>
+                                            </Box>
+                                        </Box>
+                                    }
+                                    {
+                                        activeStep == 4 &&
+                                        <Box sx={{ mt: 2, mb: 1 }}>
+                                            <b>Final step: You can't edit your changes after this step.</b>
+                                        </Box>
+                                    }
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Box>
+                                        <Box sx={{ p: '40px' }} ref={inputRef}>
+                                            <Grid container>
+                                                <Grid item xs={12} sx={{ p: '10px' }}>
+                                                    <h1 className="nameHead">{query.name || "Name"}</h1>
+                                                    <h4 className="jobTitleClass">{query.jobtitle || "Job Title"}</h4>
+                                                </Grid>
+                                                <Grid item xs={9} sx={{ p: '10px' }}>
+                                                    <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
+                                                        <TrackChangesIcon />
+                                                        <Typography className="subHeadingsTitle" variant="body1"><b>CAREER OBJECTIVE</b></Typography>
+                                                    </Stack>
+                                                    <Divider />
+                                                    <Typography>{query.description || "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident."}</Typography>
+
+                                                    <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
+                                                        <SchoolIcon />
+                                                        <Typography className="subHeadingsTitle" variant="body1"><b>EDUCATION</b></Typography>
+                                                    </Stack>
+                                                    <Divider />
+                                                    <>
+                                                        {
+                                                            addEducation.map((item) => {
+                                                                return <Box className="educationBox">
+                                                                    <h4>{item.course}</h4>
+                                                                    <p>{item.institute}</p>
+                                                                    <small>{item.coursePeriod}</small>
+                                                                </Box>
+                                                            })
+                                                        }
+                                                    </>
+                                                    <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
+                                                        <WorkHistoryIcon />
+                                                        <Typography className="subHeadingsTitle" variant="body1" ><b>WORK EXPERIENCE</b></Typography>
+                                                    </Stack>
+
+                                                    <Divider />
+                                                    <>
+                                                        {
+                                                            addWorkExperience.map((item) => {
+                                                                return <Box className="workexBox">
+                                                                    <h4>{item.workDesignationAndCompany}</h4>
+                                                                    <small>{item.workPeriod}</small>
+                                                                    <ul>
+                                                                        <li>{item.workDescriptionList1}</li>
+                                                                        <li>{item.workDescriptionList2}</li>
+                                                                        <li>{item.workDescriptionList3}</li>
+                                                                    </ul>
+                                                                </Box>
+                                                            })
+                                                        }
+                                                    </>
+                                                </Grid>
+                                                <Grid item xs={3} sx={{ p: '10px' }}>
+                                                    <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
+                                                        <EmailIcon />
+                                                        <Typography className="subHeadingsTitle" variant="body1"><b>CONTACT</b></Typography>
+                                                    </Stack>
+                                                    <Divider />
+                                                    <Typography>{query.location || "Location"}</Typography>
+                                                    <Typography>{query.phone || "Phone"}</Typography>
+                                                    <Typography>{query.email || "Email"}</Typography>
+                                                    <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
+                                                        <ExtensionIcon />
+                                                        <Typography className="subHeadingsTitle" variant="body1"><b>SKILLS</b></Typography>
+                                                    </Stack>
+                                                    <Divider />
+                                                    <ul>
+                                                        {addSkill.map((item) => {
+                                                            return <li>{item.skill}</li>
+                                                        })}
+                                                    </ul>
+                                                </Grid>
+                                            </Grid>
+                                        </Box>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+                                <Button
+                                    variant="outlined"
+                                    color="inherit"
+                                    disabled={activeStep === 0}
+                                    onClick={handleBack}
+                                    sx={{ mr: 1 }}
+                                >
+                                    Back
+                                </Button>
+                                <Box sx={{ flex: "1 1 auto" }} />
+                                {isStepOptional(activeStep) && (
+                                    <Button variant="outlined" color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+                                        Skip
+                                    </Button>
+                                )}
+
+                                <Button variant="outlined" onClick={handleNext}>
+                                    {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                                </Button>
+                            </Box>
+                        </React.Fragment>
+                    )
+                }
+            </Box >
+        </>
     );
 }
