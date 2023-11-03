@@ -1,4 +1,5 @@
 import React from "react";
+import ReactToPrint from 'react-to-print';
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -22,11 +23,13 @@ import { Stack } from "@mui/system";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
+import EngineeringIcon from '@mui/icons-material/Engineering';
 
 const steps = [
     "HEADING",
     "WORK HISTORY",
     "EDUCATION",
+    "Project",
     "SKILLS",
     "FINALIZE"
 ];
@@ -46,7 +49,12 @@ const initState = {
     workPeriod: "",
     workDescriptionList1: "",
     workDescriptionList2: "",
-    workDescriptionList3: ""
+    workDescriptionList3: "",
+    projectTitle: "",
+    projectBody: "",
+    projectDescriptionList1: "",
+    projectDescriptionList2: "",
+    projectDescriptionList3: "",
 }
 export default function ResumeBuilder() {
     const [activeStep, setActiveStep] = React.useState(0);
@@ -56,6 +64,7 @@ export default function ResumeBuilder() {
     const [addSkill, setAddSkill] = React.useState([]);
     const [addEducation, setAddEducation] = React.useState([]);
     const [addWorkExperience, setAddWorkExperience] = React.useState([]);
+    const [addProjectData, setAddProjectData] = React.useState([]);
 
     const handleQueryChange = (e) => {
         const { name, value } = e.target;
@@ -103,14 +112,14 @@ export default function ResumeBuilder() {
     const handleReset = () => {
         setActiveStep(0);
     };
-    const printDocument = () => {
-        html2canvas(inputRef.current).then((canvas) => {
-            const imgData = canvas.toDataURL("image/png");
-            const pdf = new jsPDF();
-            pdf.addImage(imgData, "JPEG", 0, 0);
-            pdf.save("resume.pdf");
-        });
-    };
+    // const printDocument = () => {
+    //     html2canvas(inputRef.current).then((canvas) => {
+    //         const imgData = canvas.toDataURL("image/png");
+    //         const pdf = new jsPDF();
+    //         pdf.addImage(imgData, "PNG", 0, 0);
+    //         pdf.save("resume.pdf");
+    //     });
+    // };
 
     const handleAddSkills = () => {
         let payload = {
@@ -137,7 +146,19 @@ export default function ResumeBuilder() {
 
         setAddWorkExperience([...addWorkExperience, payload]);
     }
+    const handleAddProjectData = () => {
+        let payload = {
+            projectTitle: query.projectTitle,
+            projectBody: query.projectBody,
+            projectDescriptionList1: query.projectDescriptionList1,
+            projectDescriptionList2: query.projectDescriptionList2,
+            projectDescriptionList3: query.projectDescriptionList3
+        };
+
+        setAddProjectData([...addProjectData, payload]);
+    }
     console.log(query);
+    console.log(addProjectData);
     return (
         <>
             <CssBaseline />
@@ -148,7 +169,7 @@ export default function ResumeBuilder() {
                     </Typography>
                 </Toolbar>
             </AppBar>
-            <Box sx={{ width: "100%", mt: '100px' }}>
+            <Box sx={{ width: "100%", mt: '100px', padding: '30px 50px' }}>
 
                 <Stepper activeStep={activeStep}>
                     {steps.map((label, index) => {
@@ -173,14 +194,20 @@ export default function ResumeBuilder() {
                     activeStep === steps.length ? (
                         <React.Fragment>
                             <Box style={{ width: '40%', margin: 'auto' }}>
-                                <Button variant="outlined" endIcon={<FileDownloadIcon />} onClick={printDocument}>Download</Button>
+                                {/* <Button variant="outlined" endIcon={<FileDownloadIcon />} onClick={printDocument}>Download</Button> */}
+                                <ReactToPrint
+                                    trigger={() => (
+                                    <Button variant="outlined" endIcon={<FileDownloadIcon />}>Download Resume</Button>
+                                    )}
+                                    content={() => inputRef.current}
+                                />
                                 <Box sx={{ p: '40px' }} ref={inputRef}>
                                     <Grid container>
                                         <Grid item xs={12} sx={{ p: '10px' }}>
                                             <h1 className="nameHead">{query.name || "Name"}</h1>
                                             <h4 className="jobTitleClass">{query.jobtitle || "Job Title"}</h4>
                                         </Grid>
-                                        <Grid item xs={9} sx={{ p: '10px' }}>
+                                        <Grid item xs={7} sx={{ p: '10px' }}>
                                             <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
                                                 <TrackChangesIcon />
                                                 <Typography className="subHeadingsTitle" variant="body1"><b>CAREER OBJECTIVE</b></Typography>
@@ -226,7 +253,7 @@ export default function ResumeBuilder() {
                                                 }
                                             </>
                                         </Grid>
-                                        <Grid item xs={3} sx={{ p: '10px' }}>
+                                        <Grid item xs={5} sx={{ p: '10px' }}>
                                             <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
                                                 <EmailIcon />
                                                 <Typography className="subHeadingsTitle" variant="body1"><b>CONTACT</b></Typography>
@@ -235,6 +262,27 @@ export default function ResumeBuilder() {
                                             <Typography>{query.location || "Location"}</Typography>
                                             <Typography>{query.phone || "Phone"}</Typography>
                                             <Typography>{query.email || "Email"}</Typography>
+                                            <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
+                                                        <EngineeringIcon />
+                                                        <Typography className="subHeadingsTitle" variant="body1" ><b>PROJECTS</b></Typography>
+                                                    </Stack>
+
+                                                    <Divider />
+                                                    <>
+                                                        {
+                                                            addProjectData.map((item) => {
+                                                                return <Box className="workexBox">
+                                                                    <h4>{item.projectTitle}</h4>
+                                                                    <small>{item.projectBody}</small>
+                                                                    <ul>
+                                                                        <li>{item.projectDescriptionList1}</li>
+                                                                        <li>{item.projectDescriptionList2}</li>
+                                                                        <li>{item.projectDescriptionList3}</li>
+                                                                    </ul>
+                                                                </Box>
+                                                            })
+                                                        }
+                                                    </>
                                             <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
                                                 <ExtensionIcon />
                                                 <Typography className="subHeadingsTitle" variant="body1"><b>SKILLS</b></Typography>
@@ -421,8 +469,66 @@ export default function ResumeBuilder() {
                                             </Box>
                                         </Box>
                                     }
-                                    {
+                                                                        {
                                         activeStep == 3 &&
+                                        <Box sx={{ mt: 2, mb: 1 }}>
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Project Title' name='projectTitle' onChange={handleQueryChange} label="Project Title" id="projectTitle" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Project Body' name='projectBody' onChange={handleQueryChange} label="Project Body" id="projectBody" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Project Description List1' name='projectDescriptionList1' onChange={handleQueryChange} label="Project Description List1" id="projectDescriptionList1" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Project Description List2' name='projectDescriptionList2' onChange={handleQueryChange} label="Project Description List2" id="projectDescriptionList2" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box
+                                                sx={{
+                                                    width: 500,
+                                                    maxWidth: '100%',
+                                                }}
+                                            >
+                                                <TextField fullWidth placeholder='Project Description List3' name='projectDescriptionList3' onChange={handleQueryChange} label="Project Description List3" id="projectDescriptionList3" />
+                                            </Box>
+                                            <br />
+                                            <br />
+                                            <Box>
+                                                <Button variant="outlined" onClick={handleAddProjectData}>Add</Button>
+                                            </Box>
+                                        </Box>
+                                    }
+                                    {
+                                        activeStep == 4 &&
                                         <Box sx={{ mt: 2, mb: 1 }}>
                                             <Box
                                                 sx={{
@@ -440,7 +546,7 @@ export default function ResumeBuilder() {
                                         </Box>
                                     }
                                     {
-                                        activeStep == 4 &&
+                                        activeStep == 5 &&
                                         <Box sx={{ mt: 2, mb: 1 }}>
                                             <b>Final step: You can't edit your changes after this step.</b>
                                         </Box>
@@ -448,13 +554,13 @@ export default function ResumeBuilder() {
                                 </Grid>
                                 <Grid item xs={6}>
                                     <Box>
-                                        <Box sx={{ p: '40px' }} ref={inputRef}>
+                                        <Box sx={{ p: '40px' }}>
                                             <Grid container>
                                                 <Grid item xs={12} sx={{ p: '10px' }}>
                                                     <h1 className="nameHead">{query.name || "Name"}</h1>
                                                     <h4 className="jobTitleClass">{query.jobtitle || "Job Title"}</h4>
                                                 </Grid>
-                                                <Grid item xs={9} sx={{ p: '10px' }}>
+                                                <Grid item xs={7} sx={{ p: '10px' }}>
                                                     <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
                                                         <TrackChangesIcon />
                                                         <Typography className="subHeadingsTitle" variant="body1"><b>CAREER OBJECTIVE</b></Typography>
@@ -500,7 +606,7 @@ export default function ResumeBuilder() {
                                                         }
                                                     </>
                                                 </Grid>
-                                                <Grid item xs={3} sx={{ p: '10px' }}>
+                                                <Grid item xs={5} sx={{ p: '10px' }}>
                                                     <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
                                                         <EmailIcon />
                                                         <Typography className="subHeadingsTitle" variant="body1"><b>CONTACT</b></Typography>
@@ -509,6 +615,27 @@ export default function ResumeBuilder() {
                                                     <Typography>{query.location || "Location"}</Typography>
                                                     <Typography>{query.phone || "Phone"}</Typography>
                                                     <Typography>{query.email || "Email"}</Typography>
+                                                    <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
+                                                        <EngineeringIcon />
+                                                        <Typography className="subHeadingsTitle" variant="body1" ><b>PROJECTS</b></Typography>
+                                                    </Stack>
+
+                                                    <Divider />
+                                                    <>
+                                                        {
+                                                            addProjectData.map((item) => {
+                                                                return <Box className="workexBox">
+                                                                    <h4>{item.projectTitle}</h4>
+                                                                    <small>{item.projectBody}</small>
+                                                                    <ul>
+                                                                        <li>{item.projectDescriptionList1}</li>
+                                                                        <li>{item.projectDescriptionList2}</li>
+                                                                        <li>{item.projectDescriptionList3}</li>
+                                                                    </ul>
+                                                                </Box>
+                                                            })
+                                                        }
+                                                    </>
                                                     <Stack direction="row" alignItems="center" gap={1} className="subHeadingStack" sx={{ color: '#1B6392' }} >
                                                         <ExtensionIcon />
                                                         <Typography className="subHeadingsTitle" variant="body1"><b>SKILLS</b></Typography>
