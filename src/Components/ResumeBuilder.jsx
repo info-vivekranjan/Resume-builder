@@ -1,5 +1,6 @@
 import React from "react";
 import ReactToPrint from "react-to-print";
+import * as Yup from "yup";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -9,8 +10,6 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import html2canvas from "html2canvas";
-import { jsPDF } from "jspdf";
 import "./ResumeBuilder.css";
 import { Divider } from "@mui/material";
 import TrackChangesIcon from "@mui/icons-material/TrackChanges";
@@ -65,11 +64,47 @@ export default function ResumeBuilder() {
   const [addEducation, setAddEducation] = React.useState([]);
   const [addWorkExperience, setAddWorkExperience] = React.useState([]);
   const [addProjectData, setAddProjectData] = React.useState([]);
+  const [errors, setErrors] = React.useState({});
 
   const handleQueryChange = (e) => {
     const { name, value } = e.target;
     setQuery({ ...query, [name]: value });
+    setErrors({ ...errors, [name]: "" });
   };
+
+  const validationSchema = [
+    Yup.object().shape({
+      name: Yup.string().required("Name is required"),
+      jobtitle: Yup.string().required("Job title is required"),
+      description: Yup.string().required("Description is required"),
+      phone: Yup.string().required("Phone number is required"),
+      email: Yup.string().email("Invalid Email").required("Email is required"),
+      location: Yup.string().required("Location is required"),
+    }),
+    Yup.object().shape({
+      workDesignationAndCompany: Yup.string().required("Company is required"),
+      workPeriod: Yup.string().required("Work Period is required"),
+      workDescriptionList1: Yup.string().required(
+        "Work Description-1 is required"
+      ),
+    }),
+    Yup.object().shape({
+      course: Yup.string().required("Course is required"),
+      institute: Yup.string().required("Institute is required"),
+      coursePeriod: Yup.string().required("Course Period is required"),
+    }),
+    Yup.object().shape({
+      projectTitle: Yup.string().required("Project Title is required"),
+      projectBody: Yup.string().required("Project Body is required"),
+      projectDescriptionList1: Yup.string().required(
+        "Project Description-1 is required"
+      ),
+    }),
+    Yup.object().shape({
+      skills: Yup.string().required("Skills are required"),
+    }),
+    Yup.object().shape({}),
+  ];
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -80,14 +115,25 @@ export default function ResumeBuilder() {
   };
 
   const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
+    validationSchema[activeStep]
+      .validate(query, { abortEarly: false })
+      .then(() => {
+        let newSkipped = skipped;
+        if (isStepSkipped(activeStep)) {
+          newSkipped = new Set(newSkipped.values());
+          newSkipped.delete(activeStep);
+        }
 
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        setSkipped(newSkipped);
+      })
+      .catch((errors) => {
+        const fieldErrors = {};
+        errors.inner.forEach((error) => {
+          fieldErrors[error.path] = error.message;
+        });
+        setErrors(fieldErrors);
+      });
   };
 
   const handleBack = () => {
@@ -157,8 +203,8 @@ export default function ResumeBuilder() {
 
     setAddProjectData([...addProjectData, payload]);
   };
-  console.log(query);
-  console.log(addProjectData);
+  // console.log(query);
+  console.log(errors);
   return (
     <>
       <CssBaseline />
@@ -376,9 +422,30 @@ export default function ResumeBuilder() {
                         onChange={handleQueryChange}
                         label="Name"
                         id="name"
+                        error={Boolean(errors.name)}
                       />
+                      {errors?.name?.length > 0 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                          }}
+                        >
+                          {errors?.name}
+                        </p>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                            visibility: "hidden",
+                          }}
+                        >
+                          .
+                        </p>
+                      )}
                     </Box>
-                    <br />
                     <br />
                     <Box
                       sx={{
@@ -393,9 +460,30 @@ export default function ResumeBuilder() {
                         onChange={handleQueryChange}
                         label="Job title"
                         id="jobtitle"
+                        error={Boolean(errors.jobtitle)}
                       />
                     </Box>
-                    <br />
+                    {errors?.jobtitle?.length > 0 ? (
+                      <p
+                        style={{
+                          color: "red",
+                          fontSize: "12px",
+                          lineHeight: "0px",
+                        }}
+                      >
+                        {errors?.jobtitle}
+                      </p>
+                    ) : (
+                      <p
+                        style={{
+                          fontSize: "12px",
+                          lineHeight: "0px",
+                          visibility: "hidden",
+                        }}
+                      >
+                        .
+                      </p>
+                    )}
                     <br />
                     <Box
                       sx={{
@@ -410,9 +498,30 @@ export default function ResumeBuilder() {
                         onChange={handleQueryChange}
                         label="Description"
                         id="description"
+                        error={Boolean(errors.description)}
                       />
+                      {errors?.description?.length > 0 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                          }}
+                        >
+                          {errors?.description}
+                        </p>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                            visibility: "hidden",
+                          }}
+                        >
+                          .
+                        </p>
+                      )}
                     </Box>
-                    <br />
                     <br />
                     <Box
                       sx={{
@@ -427,9 +536,31 @@ export default function ResumeBuilder() {
                         onChange={handleQueryChange}
                         label="Phone"
                         id="phone"
+                        error={Boolean(errors.phone)}
                       />
+                      {errors?.phone?.length > 0 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                          }}
+                        >
+                          {errors?.phone}
+                        </p>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                            visibility: "hidden",
+                          }}
+                        >
+                          .
+                        </p>
+                      )}
                     </Box>
-                    <br />
+
                     <br />
                     <Box
                       sx={{
@@ -444,9 +575,31 @@ export default function ResumeBuilder() {
                         onChange={handleQueryChange}
                         label="Email"
                         id="email"
+                        error={Boolean(errors.email)}
                       />
+                      {errors?.email?.length > 0 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                          }}
+                        >
+                          {errors?.email}
+                        </p>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                            visibility: "hidden",
+                          }}
+                        >
+                          .
+                        </p>
+                      )}
                     </Box>
-                    <br />
+
                     <br />
                     <Box
                       sx={{
@@ -461,9 +614,31 @@ export default function ResumeBuilder() {
                         onChange={handleQueryChange}
                         label="Location"
                         id="location"
+                        error={Boolean(errors.location)}
                       />
+                      {errors?.location?.length > 0 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                          }}
+                        >
+                          {errors?.location}
+                        </p>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                            visibility: "hidden",
+                          }}
+                        >
+                          .
+                        </p>
+                      )}
                     </Box>
-                    <br />
+
                     <br />
                   </Box>
                 )}
@@ -482,9 +657,31 @@ export default function ResumeBuilder() {
                         onChange={handleQueryChange}
                         label="Work Designation/Company"
                         id="workDesignationAndCompany"
+                        error={Boolean(errors.workDesignationAndCompany)}
                       />
+                      {errors?.workDesignationAndCompany?.length > 0 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                          }}
+                        >
+                          {errors?.workDesignationAndCompany}
+                        </p>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                            visibility: "hidden",
+                          }}
+                        >
+                          .
+                        </p>
+                      )}
                     </Box>
-                    <br />
+
                     <br />
                     <Box
                       sx={{
@@ -499,9 +696,31 @@ export default function ResumeBuilder() {
                         onChange={handleQueryChange}
                         label="Work Period"
                         id="workPeriod"
+                        error={Boolean(errors.workPeriod)}
                       />
+                      {errors?.workPeriod?.length > 0 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                          }}
+                        >
+                          {errors?.workPeriod}
+                        </p>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                            visibility: "hidden",
+                          }}
+                        >
+                          .
+                        </p>
+                      )}
                     </Box>
-                    <br />
+
                     <br />
                     <Box
                       sx={{
@@ -516,9 +735,31 @@ export default function ResumeBuilder() {
                         onChange={handleQueryChange}
                         label="Work Description List1"
                         id="workDescriptionList1"
+                        error={Boolean(errors.workDescriptionList1)}
                       />
+                      {errors?.workDescriptionList1?.length > 0 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                          }}
+                        >
+                          {errors?.workDescriptionList1}
+                        </p>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                            visibility: "hidden",
+                          }}
+                        >
+                          .
+                        </p>
+                      )}
                     </Box>
-                    <br />
+
                     <br />
                     <Box
                       sx={{
@@ -534,8 +775,17 @@ export default function ResumeBuilder() {
                         label="Work Description List2"
                         id="workDescriptionList2"
                       />
+                      <p
+                        style={{
+                          fontSize: "12px",
+                          lineHeight: "0px",
+                          visibility: "hidden",
+                        }}
+                      >
+                        .
+                      </p>
                     </Box>
-                    <br />
+
                     <br />
                     <Box
                       sx={{
@@ -551,8 +801,17 @@ export default function ResumeBuilder() {
                         label="Work Description List3"
                         id="workDescriptionList3"
                       />
+                      <p
+                        style={{
+                          fontSize: "12px",
+                          lineHeight: "0px",
+                          visibility: "hidden",
+                        }}
+                      >
+                        .
+                      </p>
                     </Box>
-                    <br />
+
                     <br />
                     <Box>
                       <Button
@@ -579,9 +838,31 @@ export default function ResumeBuilder() {
                         onChange={handleQueryChange}
                         label="Course"
                         id="course"
+                        error={Boolean(errors.course)}
                       />
+                      {errors?.course?.length > 0 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                          }}
+                        >
+                          {errors?.course}
+                        </p>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                            visibility: "hidden",
+                          }}
+                        >
+                          .
+                        </p>
+                      )}
                     </Box>
-                    <br />
+
                     <br />
                     <Box
                       sx={{
@@ -596,9 +877,31 @@ export default function ResumeBuilder() {
                         onChange={handleQueryChange}
                         label="Institute"
                         id="institute"
+                        error={Boolean(errors.institute)}
                       />
+                      {errors?.institute?.length > 0 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                          }}
+                        >
+                          {errors?.institute}
+                        </p>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                            visibility: "hidden",
+                          }}
+                        >
+                          .
+                        </p>
+                      )}
                     </Box>
-                    <br />
+
                     <br />
                     <Box
                       sx={{
@@ -613,9 +916,31 @@ export default function ResumeBuilder() {
                         onChange={handleQueryChange}
                         label="Course Period"
                         id="coursePeriod"
+                        error={Boolean(errors.coursePeriod)}
                       />
+                      {errors?.coursePeriod?.length > 0 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                          }}
+                        >
+                          {errors?.coursePeriod}
+                        </p>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                            visibility: "hidden",
+                          }}
+                        >
+                          .
+                        </p>
+                      )}
                     </Box>
-                    <br />
+
                     <br />
                     <Box>
                       <Button variant="outlined" onClick={handleAddEducation}>
@@ -639,9 +964,31 @@ export default function ResumeBuilder() {
                         onChange={handleQueryChange}
                         label="Project Title"
                         id="projectTitle"
+                        error={Boolean(errors.projectTitle)}
                       />
+                      {errors?.projectTitle?.length > 0 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                          }}
+                        >
+                          {errors?.projectTitle}
+                        </p>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                            visibility: "hidden",
+                          }}
+                        >
+                          .
+                        </p>
+                      )}
                     </Box>
-                    <br />
+
                     <br />
                     <Box
                       sx={{
@@ -656,9 +1003,31 @@ export default function ResumeBuilder() {
                         onChange={handleQueryChange}
                         label="Project Body"
                         id="projectBody"
+                        error={Boolean(errors.projectBody)}
                       />
+                      {errors?.projectBody?.length > 0 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                          }}
+                        >
+                          {errors?.projectBody}
+                        </p>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                            visibility: "hidden",
+                          }}
+                        >
+                          .
+                        </p>
+                      )}
                     </Box>
-                    <br />
+
                     <br />
                     <Box
                       sx={{
@@ -673,9 +1042,31 @@ export default function ResumeBuilder() {
                         onChange={handleQueryChange}
                         label="Project Description List1"
                         id="projectDescriptionList1"
+                        error={Boolean(errors.projectDescriptionList1)}
                       />
+                      {errors?.projectDescriptionList1?.length > 0 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                          }}
+                        >
+                          {errors?.projectDescriptionList1}
+                        </p>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                            visibility: "hidden",
+                          }}
+                        >
+                          .
+                        </p>
+                      )}
                     </Box>
-                    <br />
+
                     <br />
                     <Box
                       sx={{
@@ -691,8 +1082,17 @@ export default function ResumeBuilder() {
                         label="Project Description List2"
                         id="projectDescriptionList2"
                       />
+                      <p
+                        style={{
+                          fontSize: "12px",
+                          lineHeight: "0px",
+                          visibility: "hidden",
+                        }}
+                      >
+                        .
+                      </p>
                     </Box>
-                    <br />
+
                     <br />
                     <Box
                       sx={{
@@ -708,8 +1108,17 @@ export default function ResumeBuilder() {
                         label="Project Description List3"
                         id="projectDescriptionList3"
                       />
+                      <p
+                        style={{
+                          fontSize: "12px",
+                          lineHeight: "0px",
+                          visibility: "hidden",
+                        }}
+                      >
+                        .
+                      </p>
                     </Box>
-                    <br />
+
                     <br />
                     <Box>
                       <Button variant="outlined" onClick={handleAddProjectData}>
@@ -733,7 +1142,29 @@ export default function ResumeBuilder() {
                         onChange={handleQueryChange}
                         label="Skills"
                         id="skills"
+                        error={Boolean(errors.skills)}
                       />
+                      {errors?.skills?.length > 0 ? (
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                          }}
+                        >
+                          {errors?.skills}
+                        </p>
+                      ) : (
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            lineHeight: "0px",
+                            visibility: "hidden",
+                          }}
+                        >
+                          .
+                        </p>
+                      )}
                     </Box>
                     <Box>
                       <Button variant="outlined" onClick={handleAddSkills}>
@@ -745,7 +1176,7 @@ export default function ResumeBuilder() {
                 {activeStep == 5 && (
                   <Box sx={{ mt: 2, mb: 1 }}>
                     <b>
-                      Final step: You can't edit your changes after this step.
+                      Final step: You can't go back after this step.
                     </b>
                   </Box>
                 )}
