@@ -247,52 +247,179 @@ export default function ResumeBuilder() {
   const handleReset = () => {
     setActiveStep(0);
   };
-  // const printDocument = () => {
-  //     html2canvas(inputRef.current).then((canvas) => {
-  //         const imgData = canvas.toDataURL("image/png");
-  //         const pdf = new jsPDF();
-  //         pdf.addImage(imgData, "PNG", 0, 0);
-  //         pdf.save("resume.pdf");
-  //     });
+
+  // const handleAddSkills = () => {
+  //   let payload = {
+  //     skill: query.skills,
+  //   };
+  //   setAddSkill([...addSkill, payload]);
+  // };
+  const handleAddSkills = () => {
+    validationSchema[activeStep]
+      .validate(query, { abortEarly: false })
+      .then(() => {
+        let payload = {
+          skill: query.skills,
+        };
+        setAddSkill([...addSkill, payload]);
+        // setQuery({ ...query, skills: "" });
+        setErrors({ ...errors, skills: "" });
+      })
+      .catch((errors) => {
+        const fieldErrors = {};
+        errors.inner.forEach((error) => {
+          fieldErrors[error.path] = error.message;
+        });
+        setErrors({ ...errors, ...fieldErrors });
+      });
+  };
+
+  // const handleAddEducation = () => {
+  //   let payload = {
+  //     course: query.course,
+  //     institute: query.institute,
+  //     coursePeriod: query.coursePeriod,
+  //   };
+  //   setAddEducation([...addEducation, payload]);
   // };
 
-  const handleAddSkills = () => {
-    let payload = {
-      skill: query.skills,
-    };
-    setAddSkill([...addSkill, payload]);
-  };
   const handleAddEducation = () => {
-    let payload = {
-      course: query.course,
-      institute: query.institute,
-      coursePeriod: query.coursePeriod,
-    };
-    setAddEducation([...addEducation, payload]);
+    validationSchema[activeStep]
+      .validate(query, { abortEarly: false })
+      .then(() => {
+        let payload = {
+          course: query.course,
+          institute: query.institute,
+          coursePeriod: query.coursePeriod,
+        };
+        setAddEducation([...addEducation, payload]);
+        /*
+        setQuery({
+          ...query,
+          course: "",
+          institute: "",
+          coursePeriod: "",
+        });
+        */
+        setErrors({
+          ...errors,
+          course: "",
+          institute: "",
+          coursePeriod: "",
+        });
+      })
+      .catch((errors) => {
+        const fieldErrors = {};
+        errors.inner.forEach((error) => {
+          fieldErrors[error.path] = error.message;
+        });
+        setErrors({ ...errors, ...fieldErrors });
+      });
   };
+
+  // const handleAddWorkExperience = () => {
+  //   let payload = {
+  //     workDesignationAndCompany: query.workDesignationAndCompany,
+  //     workPeriod: query.workPeriod,
+  //     workDescriptionList1: query.workDescriptionList1,
+  //     workDescriptionList2: query.workDescriptionList2,
+  //     workDescriptionList3: query.workDescriptionList3,
+  //   };
+
+  //   setAddWorkExperience([...addWorkExperience, payload]);
+  // };
+
   const handleAddWorkExperience = () => {
-    let payload = {
-      workDesignationAndCompany: query.workDesignationAndCompany,
-      workPeriod: query.workPeriod,
-      workDescriptionList1: query.workDescriptionList1,
-      workDescriptionList2: query.workDescriptionList2,
-      workDescriptionList3: query.workDescriptionList3,
-    };
-
-    setAddWorkExperience([...addWorkExperience, payload]);
+    validationSchema[activeStep]
+      .validate(query, { abortEarly: false })
+      .then(() => {
+        let payload = {
+          workDesignationAndCompany: query.workDesignationAndCompany,
+          workPeriod: query.workPeriod,
+          workDescriptionList1: query.workDescriptionList1,
+          workDescriptionList2: query.workDescriptionList2,
+          workDescriptionList3: query.workDescriptionList3,
+        };
+        setAddWorkExperience([...addWorkExperience, payload]);
+        /*
+        setQuery({
+          ...query,
+          workDesignationAndCompany: "",
+          workPeriod: "",
+          workDescriptionList1: "",
+          workDescriptionList2: "",
+          workDescriptionList3: "",
+        });
+        */
+        setErrors({
+          ...errors,
+          workDesignationAndCompany: "",
+          workPeriod: "",
+          workDescriptionList1: "",
+          workDescriptionList2: "",
+          workDescriptionList3: "",
+        });
+      })
+      .catch((errors) => {
+        const fieldErrors = {};
+        errors.inner.forEach((error) => {
+          fieldErrors[error.path] = error.message;
+        });
+        setErrors({ ...errors, ...fieldErrors });
+      });
   };
+  // const handleAddProjectData = () => {
+  //   let payload = {
+  //     projectTitle: query.projectTitle,
+  //     projectBody: query.projectBody,
+  //     projectDescriptionList1: query.projectDescriptionList1,
+  //     projectDescriptionList2: query.projectDescriptionList2,
+  //     projectDescriptionList3: query.projectDescriptionList3,
+  //   };
+
+  //   setAddProjectData([...addProjectData, payload]);
+  // };
+
   const handleAddProjectData = () => {
-    let payload = {
-      projectTitle: query.projectTitle,
-      projectBody: query.projectBody,
-      projectDescriptionList1: query.projectDescriptionList1,
-      projectDescriptionList2: query.projectDescriptionList2,
-      projectDescriptionList3: query.projectDescriptionList3,
-    };
-
-    setAddProjectData([...addProjectData, payload]);
+    validationSchema[activeStep]
+      .validate(query, { abortEarly: false })
+      .then(() => {
+        let payload = {
+          projectTitle: query.projectTitle,
+          projectBody: query.projectBody,
+          projectDescriptionList1: query.projectDescriptionList1,
+          projectDescriptionList2: query.projectDescriptionList2,
+          projectDescriptionList3: query.projectDescriptionList3,
+        };
+        setAddProjectData([...addProjectData, payload]);
+        /*
+        setQuery({
+          ...query,
+          projectTitle: "",
+          projectBody: "",
+          projectDescriptionList1: "",
+          projectDescriptionList2: "",
+          projectDescriptionList3: "",
+        });
+        */
+        setErrors({
+          ...errors,
+          projectTitle: "",
+          projectBody: "",
+          projectDescriptionList1: "",
+          projectDescriptionList2: "",
+          projectDescriptionList3: "",
+        });
+      })
+      .catch((errors) => {
+        const fieldErrors = {};
+        errors.inner.forEach((error) => {
+          fieldErrors[error.path] = error.message;
+        });
+        setErrors({ ...errors, ...fieldErrors });
+      });
   };
-  // console.log(query);
+
   console.log(errors);
   return (
     <>
