@@ -28,6 +28,8 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import VideoLabelIcon from "@mui/icons-material/VideoLabel";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 import StepConnector, {
   stepConnectorClasses,
@@ -144,6 +146,11 @@ const themeColor = createTheme({
     },
   },
 });
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function ResumeBuilder() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -154,6 +161,16 @@ export default function ResumeBuilder() {
   const [addWorkExperience, setAddWorkExperience] = React.useState([]);
   const [addProjectData, setAddProjectData] = React.useState([]);
   const [errors, setErrors] = React.useState({});
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState('')
+
+  const handleOpenSnackbar = () => {
+    setOpenSnackbar(true);
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
 
   const handleQueryChange = (e) => {
     const { name, value } = e.target;
@@ -204,25 +221,68 @@ export default function ResumeBuilder() {
   };
 
   const handleNext = () => {
-    validationSchema[activeStep]
-      .validate(query, { abortEarly: false })
-      .then(() => {
-        let newSkipped = skipped;
-        if (isStepSkipped(activeStep)) {
-          newSkipped = new Set(newSkipped.values());
-          newSkipped.delete(activeStep);
-        }
+    if (activeStep == 0) {
+      validationSchema[0]
+        .validate(query, { abortEarly: false })
+        .then(() => {
+          let newSkipped = skipped;
+          if (isStepSkipped(activeStep)) {
+            newSkipped = new Set(newSkipped.values());
+            newSkipped.delete(activeStep);
+          }
 
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped(newSkipped);
-      })
-      .catch((errors) => {
-        const fieldErrors = {};
-        errors.inner.forEach((error) => {
-          fieldErrors[error.path] = error.message;
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+          setSkipped(newSkipped);
+        })
+        .catch((errors) => {
+          const fieldErrors = {};
+          errors.inner.forEach((error) => {
+            fieldErrors[error.path] = error.message;
+          });
+          setErrors(fieldErrors);
         });
-        setErrors(fieldErrors);
-      });
+    }
+    if (activeStep == 1) {
+      if (addWorkExperience?.length <= 0) {
+        // alert("Add work experience");
+        setSnackbarMessage('Add work experience')
+        handleOpenSnackbar();
+      } else {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      }
+    }
+    if (activeStep == 2) {
+      if (addEducation?.length <= 0) {
+        // alert("Add Education");
+        setSnackbarMessage('Add Education')
+        handleOpenSnackbar();
+      } else {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      }
+    }
+    if (activeStep == 3) {
+      if (addProjectData?.length <= 0) {
+        // alert("Add projects");
+        setSnackbarMessage('Add projects')
+        handleOpenSnackbar();
+      } else {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      }
+    }
+
+    if (activeStep == 4) {
+      if (addSkill?.length <= 0) {
+        // alert("Add Skills");
+        setSnackbarMessage('Add skills')
+        handleOpenSnackbar();
+      } else {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      }
+    }
+
+    if (activeStep == 5) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
   };
 
   const handleBack = () => {
@@ -262,7 +322,7 @@ export default function ResumeBuilder() {
           skill: query.skills,
         };
         setAddSkill([...addSkill, payload]);
-        // setQuery({ ...query, skills: "" });
+        setQuery({ ...query, skills: "" });
         setErrors({ ...errors, skills: "" });
       })
       .catch((errors) => {
@@ -293,14 +353,14 @@ export default function ResumeBuilder() {
           coursePeriod: query.coursePeriod,
         };
         setAddEducation([...addEducation, payload]);
-        /*
+
         setQuery({
           ...query,
           course: "",
           institute: "",
           coursePeriod: "",
         });
-        */
+
         setErrors({
           ...errors,
           course: "",
@@ -341,7 +401,7 @@ export default function ResumeBuilder() {
           workDescriptionList3: query.workDescriptionList3,
         };
         setAddWorkExperience([...addWorkExperience, payload]);
-        /*
+
         setQuery({
           ...query,
           workDesignationAndCompany: "",
@@ -350,7 +410,7 @@ export default function ResumeBuilder() {
           workDescriptionList2: "",
           workDescriptionList3: "",
         });
-        */
+
         setErrors({
           ...errors,
           workDesignationAndCompany: "",
@@ -392,7 +452,7 @@ export default function ResumeBuilder() {
           projectDescriptionList3: query.projectDescriptionList3,
         };
         setAddProjectData([...addProjectData, payload]);
-        /*
+
         setQuery({
           ...query,
           projectTitle: "",
@@ -401,7 +461,7 @@ export default function ResumeBuilder() {
           projectDescriptionList2: "",
           projectDescriptionList3: "",
         });
-        */
+
         setErrors({
           ...errors,
           projectTitle: "",
@@ -437,6 +497,19 @@ export default function ResumeBuilder() {
             </Typography>
           </Toolbar>
         </AppBar>
+        <Snackbar
+          open={openSnackbar}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+        >
+          <Alert
+            onClose={handleCloseSnackbar}
+            severity="warning"
+            sx={{ width: "100%" }}
+          >
+            {snackbarMessage}
+          </Alert>
+        </Snackbar>
         <Box sx={{ width: "100%", mt: "100px", padding: "30px 50px" }}>
           <Stepper activeStep={activeStep} connector={<ColorlibConnector />}>
             {steps.map((label, index) => {
@@ -464,11 +537,14 @@ export default function ResumeBuilder() {
           </Stepper>
           {activeStep === steps.length ? (
             <React.Fragment>
-              <Box style={{ width: "40%", margin: "auto" }}>
+              <Box style={{ width: "40%", margin: "auto", marginTop: '30px' }}>
                 {/* <Button variant="outlined" endIcon={<FileDownloadIcon />} onClick={printDocument}>Download</Button> */}
                 <ReactToPrint
                   trigger={() => (
-                    <Button variant="outlined" endIcon={<FileDownloadIcon />}>
+                    <Button
+                      variant="contained"
+                      endIcon={<FileDownloadIcon sx={{ color: "white" }} />}
+                    >
                       Download Resume
                     </Button>
                   )}
