@@ -161,6 +161,11 @@ export default function ResumeBuilder() {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState("");
   const [titleColor, setTitleColor] = React.useState("#1B6392");
+  const [selectedTemplate, setSelectedTemplate] = React.useState("Template1");
+
+  const handleTemplateChange = (template) => {
+    setSelectedTemplate(template);
+  };
 
   const handleTitleColorChange = (event) => {
     const newColor = event.target.value;
@@ -555,6 +560,13 @@ export default function ResumeBuilder() {
                 Title Color
               </Button>
             </label>
+            <select
+              value={selectedTemplate}
+              onChange={(e) => handleTemplateChange(e.target.value)}
+            >
+              <option value="Template1">Template 1</option>
+              <option value="Template2">Template 2</option>
+            </select>
           </Box>
           {activeStep === steps.length ? (
             <React.Fragment>
@@ -571,7 +583,7 @@ export default function ResumeBuilder() {
                   )}
                   content={() => inputRef.current}
                 />
-                <Box sx={{ p: "40px" }} ref={inputRef}>
+                <Box sx={{ p: "40px", pt: "0px" }} ref={inputRef}>
                   <ResumePreview
                     query={query}
                     titleColor={titleColor}
@@ -579,6 +591,7 @@ export default function ResumeBuilder() {
                     addWorkExperience={addWorkExperience}
                     addProjectData={addProjectData}
                     addSkill={addSkill}
+                    selectedTemplate={selectedTemplate}
                   />
                 </Box>
               </Box>
@@ -605,7 +618,7 @@ export default function ResumeBuilder() {
                 </Grid>
                 <Grid item xs={6}>
                   <Box>
-                    <Box sx={{ p: "40px" }}>
+                    <Box sx={{ p: "40px", pt: "0px" }}>
                       <ResumePreview
                         query={query}
                         titleColor={titleColor}
@@ -613,6 +626,7 @@ export default function ResumeBuilder() {
                         addWorkExperience={addWorkExperience}
                         addProjectData={addProjectData}
                         addSkill={addSkill}
+                        selectedTemplate={selectedTemplate}
                       />
                     </Box>
                   </Box>
