@@ -23,8 +23,6 @@ import Toolbar from "@mui/material/Toolbar";
 import CssBaseline from "@mui/material/CssBaseline";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-import SettingsIcon from "@mui/icons-material/Settings";
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import VideoLabelIcon from "@mui/icons-material/VideoLabel";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
@@ -41,14 +39,12 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   },
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage:
-        "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)",
+      backgroundImage: "linear-gradient(140deg,#002d52,#186948)",
     },
   },
   [`&.${stepConnectorClasses.completed}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage:
-        "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)",
+      backgroundImage: "linear-gradient(140deg,#002d52,#186948)",
     },
   },
   [`& .${stepConnectorClasses.line}`]: {
@@ -72,13 +68,11 @@ const ColorlibStepIconRoot = styled("div")(({ theme, ownerState }) => ({
   justifyContent: "center",
   alignItems: "center",
   ...(ownerState.active && {
-    backgroundImage:
-      "linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)",
+    backgroundImage: "linear-gradient(140deg,#002d52,#186948)",
     boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
   }),
   ...(ownerState.completed && {
-    backgroundImage:
-      "linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)",
+    backgroundImage: "linear-gradient(140deg,#002d52,#186948)",
   }),
 }));
 
@@ -139,7 +133,7 @@ const initState = {
 const themeColor = createTheme({
   palette: {
     primary: {
-      main: "rgb(204, 71, 85)",
+      main: "#186948",
     },
     secondary: {
       main: "#ffffff",
@@ -162,7 +156,7 @@ export default function ResumeBuilder() {
   const [addProjectData, setAddProjectData] = React.useState([]);
   const [errors, setErrors] = React.useState({});
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState('')
+  const [snackbarMessage, setSnackbarMessage] = React.useState("");
 
   const handleOpenSnackbar = () => {
     setOpenSnackbar(true);
@@ -245,7 +239,7 @@ export default function ResumeBuilder() {
     if (activeStep == 1) {
       if (addWorkExperience?.length <= 0) {
         // alert("Add work experience");
-        setSnackbarMessage('Add work experience')
+        setSnackbarMessage("Add work experience");
         handleOpenSnackbar();
       } else {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -254,7 +248,7 @@ export default function ResumeBuilder() {
     if (activeStep == 2) {
       if (addEducation?.length <= 0) {
         // alert("Add Education");
-        setSnackbarMessage('Add Education')
+        setSnackbarMessage("Add Education");
         handleOpenSnackbar();
       } else {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -263,7 +257,7 @@ export default function ResumeBuilder() {
     if (activeStep == 3) {
       if (addProjectData?.length <= 0) {
         // alert("Add projects");
-        setSnackbarMessage('Add projects')
+        setSnackbarMessage("Add projects");
         handleOpenSnackbar();
       } else {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -273,7 +267,7 @@ export default function ResumeBuilder() {
     if (activeStep == 4) {
       if (addSkill?.length <= 0) {
         // alert("Add Skills");
-        setSnackbarMessage('Add skills')
+        setSnackbarMessage("Add skills");
         handleOpenSnackbar();
       } else {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -487,8 +481,7 @@ export default function ResumeBuilder() {
         <CssBaseline />
         <AppBar
           style={{
-            background:
-              "linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)",
+            background: "linear-gradient(140deg,#002d52,#186948)",
           }}
         >
           <Toolbar>
@@ -537,7 +530,7 @@ export default function ResumeBuilder() {
           </Stepper>
           {activeStep === steps.length ? (
             <React.Fragment>
-              <Box style={{ width: "40%", margin: "auto", marginTop: '30px' }}>
+              <Box style={{ width: "40%", margin: "auto", marginTop: "30px" }}>
                 {/* <Button variant="outlined" endIcon={<FileDownloadIcon />} onClick={printDocument}>Download</Button> */}
                 <ReactToPrint
                   trigger={() => (
@@ -600,9 +593,11 @@ export default function ResumeBuilder() {
                         {addEducation.map((item) => {
                           return (
                             <Box className="educationBox">
-                              <h4>{item.course}</h4>
-                              <p>{item.institute}</p>
-                              <small>{item.coursePeriod}</small>
+                              {item.course && <h4>{item.course}</h4>}
+                              {item.institute && <p>{item.institute}</p>}
+                              {item.coursePeriod && (
+                                <small>{item.coursePeriod}</small>
+                              )}
                             </Box>
                           );
                         })}
@@ -628,12 +623,22 @@ export default function ResumeBuilder() {
                         {addWorkExperience.map((item) => {
                           return (
                             <Box className="workexBox">
-                              <h4>{item.workDesignationAndCompany}</h4>
-                              <small>{item.workPeriod}</small>
+                              {item.workDesignationAndCompany && (
+                                <h4>{item.workDesignationAndCompany}</h4>
+                              )}
+                              {item.workPeriod && (
+                                <small>{item.workPeriod}</small>
+                              )}
                               <ul>
-                                <li>{item.workDescriptionList1}</li>
-                                <li>{item.workDescriptionList2}</li>
-                                <li>{item.workDescriptionList3}</li>
+                                {item.workDescriptionList1 && (
+                                  <li>{item.workDescriptionList1}</li>
+                                )}
+                                {item.workDescriptionList2 && (
+                                  <li>{item.workDescriptionList2}</li>
+                                )}
+                                {item.workDescriptionList3 && (
+                                  <li>{item.workDescriptionList3}</li>
+                                )}
                               </ul>
                             </Box>
                           );
@@ -681,12 +686,22 @@ export default function ResumeBuilder() {
                         {addProjectData.map((item) => {
                           return (
                             <Box className="workexBox">
-                              <h4>{item.projectTitle}</h4>
-                              <small>{item.projectBody}</small>
+                              {item.projectTitle && (
+                                <h4>{item.projectTitle}</h4>
+                              )}
+                              {item.projectBody && (
+                                <small>{item.projectBody}</small>
+                              )}
                               <ul>
-                                <li>{item.projectDescriptionList1}</li>
-                                <li>{item.projectDescriptionList2}</li>
-                                <li>{item.projectDescriptionList3}</li>
+                                {item.projectDescriptionList1 && (
+                                  <li>{item.projectDescriptionList1}</li>
+                                )}
+                                {item.projectDescriptionList2 && (
+                                  <li>{item.projectDescriptionList2}</li>
+                                )}
+                                {item.projectDescriptionList3 && (
+                                  <li>{item.projectDescriptionList3}</li>
+                                )}
                               </ul>
                             </Box>
                           );
@@ -710,7 +725,7 @@ export default function ResumeBuilder() {
                       <Divider />
                       <ul>
                         {addSkill.map((item) => {
-                          return <li>{item.skill}</li>;
+                          return <>{item.skill && <li>{item.skill}</li>}</>;
                         })}
                       </ul>
                     </Grid>
@@ -1556,9 +1571,11 @@ export default function ResumeBuilder() {
                             {addEducation.map((item) => {
                               return (
                                 <Box className="educationBox">
-                                  <h4>{item.course}</h4>
-                                  <p>{item.institute}</p>
-                                  <small>{item.coursePeriod}</small>
+                                  {item.course && <h4>{item.course}</h4>}
+                                  {item.institute && <p>{item.institute}</p>}
+                                  {item.coursePeriod && (
+                                    <small>{item.coursePeriod}</small>
+                                  )}
                                 </Box>
                               );
                             })}
@@ -1584,12 +1601,22 @@ export default function ResumeBuilder() {
                             {addWorkExperience.map((item) => {
                               return (
                                 <Box className="workexBox">
-                                  <h4>{item.workDesignationAndCompany}</h4>
-                                  <small>{item.workPeriod}</small>
+                                  {item.workDesignationAndCompany && (
+                                    <h4>{item.workDesignationAndCompany}</h4>
+                                  )}
+                                  {item.workPeriod && (
+                                    <small>{item.workPeriod}</small>
+                                  )}
                                   <ul>
-                                    <li>{item.workDescriptionList1}</li>
-                                    <li>{item.workDescriptionList2}</li>
-                                    <li>{item.workDescriptionList3}</li>
+                                    {item.workDescriptionList1 && (
+                                      <li>{item.workDescriptionList1}</li>
+                                    )}
+                                    {item.workDescriptionList2 && (
+                                      <li>{item.workDescriptionList2}</li>
+                                    )}
+                                    {item.workDescriptionList3 && (
+                                      <li>{item.workDescriptionList3}</li>
+                                    )}
                                   </ul>
                                 </Box>
                               );
@@ -1639,12 +1666,22 @@ export default function ResumeBuilder() {
                             {addProjectData.map((item) => {
                               return (
                                 <Box className="workexBox">
-                                  <h4>{item.projectTitle}</h4>
-                                  <small>{item.projectBody}</small>
+                                  {item.projectTitle && (
+                                    <h4>{item.projectTitle}</h4>
+                                  )}
+                                  {item.projectBody && (
+                                    <small>{item.projectBody}</small>
+                                  )}
                                   <ul>
-                                    <li>{item.projectDescriptionList1}</li>
-                                    <li>{item.projectDescriptionList2}</li>
-                                    <li>{item.projectDescriptionList3}</li>
+                                    {item.projectDescriptionList1 && (
+                                      <li>{item.projectDescriptionList1}</li>
+                                    )}
+                                    {item.projectDescriptionList2 && (
+                                      <li>{item.projectDescriptionList2}</li>
+                                    )}
+                                    {item.projectDescriptionList3 && (
+                                      <li>{item.projectDescriptionList3}</li>
+                                    )}
                                   </ul>
                                 </Box>
                               );
@@ -1668,7 +1705,7 @@ export default function ResumeBuilder() {
                           <Divider />
                           <ul>
                             {addSkill.map((item) => {
-                              return <li>{item.skill}</li>;
+                              return <>{item.skill && <li>{item.skill}</li>}</>;
                             })}
                           </ul>
                         </Grid>
