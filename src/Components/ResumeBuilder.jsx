@@ -28,6 +28,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import FormatColorTextIcon from "@mui/icons-material/FormatColorText";
 
 import StepConnector, {
   stepConnectorClasses,
@@ -157,7 +158,12 @@ export default function ResumeBuilder() {
   const [errors, setErrors] = React.useState({});
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState("");
+  const [titleColor, setTitleColor] = React.useState("#1B6392");
 
+  const handleTitleColorChange = (event) => {
+    const newColor = event.target.value;
+    setTitleColor(newColor);
+  };
   const handleOpenSnackbar = () => {
     setOpenSnackbar(true);
   };
@@ -503,7 +509,7 @@ export default function ResumeBuilder() {
             {snackbarMessage}
           </Alert>
         </Snackbar>
-        <Box sx={{ width: "100%", mt: "100px", padding: "30px 50px" }}>
+        <Box sx={{ width: "100%", mt: "50px", padding: "30px 50px" }}>
           <Stepper activeStep={activeStep} connector={<ColorlibConnector />}>
             {steps.map((label, index) => {
               const stepProps = {};
@@ -528,6 +534,26 @@ export default function ResumeBuilder() {
               );
             })}
           </Stepper>
+          <br />
+          <Box style={{ textAlign: 'right' }}>
+            <label htmlFor="each-title-color">
+              <input
+                id="each-title-color"
+                type="color"
+                value={titleColor}
+                onChange={handleTitleColorChange}
+                style={{ display: "none" }}
+              />
+              <Button
+                variant="outlined"
+                component="span"
+                size="small"
+                endIcon={<FormatColorTextIcon />}
+              >
+                Title Color
+              </Button>
+            </label>
+          </Box>
           {activeStep === steps.length ? (
             <React.Fragment>
               <Box style={{ width: "40%", margin: "auto", marginTop: "30px" }}>
@@ -557,7 +583,7 @@ export default function ResumeBuilder() {
                         alignItems="center"
                         gap={1}
                         className="subHeadingStack"
-                        sx={{ color: "#1B6392" }}
+                        sx={{ color: titleColor }}
                       >
                         <TrackChangesIcon />
                         <Typography
@@ -578,7 +604,7 @@ export default function ResumeBuilder() {
                         alignItems="center"
                         gap={1}
                         className="subHeadingStack"
-                        sx={{ color: "#1B6392" }}
+                        sx={{ color: titleColor }}
                       >
                         <SchoolIcon />
                         <Typography
@@ -607,7 +633,7 @@ export default function ResumeBuilder() {
                         alignItems="center"
                         gap={1}
                         className="subHeadingStack"
-                        sx={{ color: "#1B6392" }}
+                        sx={{ color: titleColor }}
                       >
                         <WorkHistoryIcon />
                         <Typography
@@ -651,7 +677,7 @@ export default function ResumeBuilder() {
                         alignItems="center"
                         gap={1}
                         className="subHeadingStack"
-                        sx={{ color: "#1B6392" }}
+                        sx={{ color: titleColor }}
                       >
                         <EmailIcon />
                         <Typography
@@ -670,7 +696,7 @@ export default function ResumeBuilder() {
                         alignItems="center"
                         gap={1}
                         className="subHeadingStack"
-                        sx={{ color: "#1B6392" }}
+                        sx={{ color: titleColor }}
                       >
                         <EngineeringIcon />
                         <Typography
@@ -712,7 +738,7 @@ export default function ResumeBuilder() {
                         alignItems="center"
                         gap={1}
                         className="subHeadingStack"
-                        sx={{ color: "#1B6392" }}
+                        sx={{ color: titleColor }}
                       >
                         <ExtensionIcon />
                         <Typography
@@ -1535,7 +1561,7 @@ export default function ResumeBuilder() {
                             alignItems="center"
                             gap={1}
                             className="subHeadingStack"
-                            sx={{ color: "#1B6392" }}
+                            sx={{ color: titleColor }}
                           >
                             <TrackChangesIcon />
                             <Typography
@@ -1556,7 +1582,7 @@ export default function ResumeBuilder() {
                             alignItems="center"
                             gap={1}
                             className="subHeadingStack"
-                            sx={{ color: "#1B6392" }}
+                            sx={{ color: titleColor }}
                           >
                             <SchoolIcon />
                             <Typography
@@ -1585,7 +1611,7 @@ export default function ResumeBuilder() {
                             alignItems="center"
                             gap={1}
                             className="subHeadingStack"
-                            sx={{ color: "#1B6392" }}
+                            sx={{ color: titleColor }}
                           >
                             <WorkHistoryIcon />
                             <Typography
@@ -1629,7 +1655,7 @@ export default function ResumeBuilder() {
                             alignItems="center"
                             gap={1}
                             className="subHeadingStack"
-                            sx={{ color: "#1B6392" }}
+                            sx={{ color: titleColor }}
                           >
                             <EmailIcon />
                             <Typography
@@ -1650,7 +1676,7 @@ export default function ResumeBuilder() {
                             alignItems="center"
                             gap={1}
                             className="subHeadingStack"
-                            sx={{ color: "#1B6392" }}
+                            sx={{ color: titleColor }}
                           >
                             <EngineeringIcon />
                             <Typography
@@ -1692,7 +1718,7 @@ export default function ResumeBuilder() {
                             alignItems="center"
                             gap={1}
                             className="subHeadingStack"
-                            sx={{ color: "#1B6392" }}
+                            sx={{ color: titleColor }}
                           >
                             <ExtensionIcon />
                             <Typography
