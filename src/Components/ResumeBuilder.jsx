@@ -116,12 +116,15 @@ const initState = {
   description: "",
   phone: "",
   email: "",
+  github:"",
+  linkedIn:"",
   location: "",
   skills: "",
   course: "",
   institute: "",
   coursePeriod: "",
   workDesignationAndCompany: "",
+  workProfile:"",
   workPeriod: "",
   workDescriptionList1: "",
   workDescriptionList2: "",
@@ -196,6 +199,7 @@ export default function ResumeBuilder() {
     }),
     Yup.object().shape({
       workDesignationAndCompany: Yup.string().required("Company is required"),
+      workProfile: Yup.string().required("Work profile is required"),
       workPeriod: Yup.string().required("Work Period is required"),
       workDescriptionList1: Yup.string().required(
         "Work Description-1 is required"
@@ -402,6 +406,7 @@ export default function ResumeBuilder() {
       .then(() => {
         let payload = {
           workDesignationAndCompany: query.workDesignationAndCompany,
+          workProfile: query.workProfile,
           workPeriod: query.workPeriod,
           workDescriptionList1: query.workDescriptionList1,
           workDescriptionList2: query.workDescriptionList2,
@@ -412,6 +417,7 @@ export default function ResumeBuilder() {
         setQuery({
           ...query,
           workDesignationAndCompany: "",
+          workProfile:"",
           workPeriod: "",
           workDescriptionList1: "",
           workDescriptionList2: "",
@@ -421,6 +427,7 @@ export default function ResumeBuilder() {
         setErrors({
           ...errors,
           workDesignationAndCompany: "",
+          workProfile:"",
           workPeriod: "",
           workDescriptionList1: "",
           workDescriptionList2: "",

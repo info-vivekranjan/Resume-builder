@@ -124,6 +124,8 @@ const ResumeTemplate0 = (props) => {
           <Typography>{query?.location || "Location"}</Typography>
           <Typography>{query?.phone || "Phone"}</Typography>
           <Typography>{query?.email || "Email"}</Typography>
+          <Typography>{query?.github || "Github"}</Typography>
+          <Typography>{query?.linkedIn || "LinkedIn"}</Typography>
           <Stack
             direction="row"
             alignItems="center"

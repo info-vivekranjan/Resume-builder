@@ -26,6 +26,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Name"
               name="name"
@@ -40,6 +41,7 @@ const ResumeForm = (props) => {
                   color: "red",
                   fontSize: "12px",
                   lineHeight: "0px",
+                  marginBottom: "25px",
                 }}
               >
                 {errors?.name}
@@ -50,13 +52,14 @@ const ResumeForm = (props) => {
                   fontSize: "12px",
                   lineHeight: "0px",
                   visibility: "hidden",
+                  marginBottom: "25px",
                 }}
               >
                 .
               </p>
             )}
           </Box>
-          <br />
+
           <Box
             sx={{
               width: 500,
@@ -64,6 +67,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Job title"
               name="jobtitle"
@@ -79,6 +83,7 @@ const ResumeForm = (props) => {
                 color: "red",
                 fontSize: "12px",
                 lineHeight: "0px",
+                marginBottom: "25px",
               }}
             >
               {errors?.jobtitle}
@@ -89,12 +94,12 @@ const ResumeForm = (props) => {
                 fontSize: "12px",
                 lineHeight: "0px",
                 visibility: "hidden",
+                marginBottom: "25px",
               }}
             >
               .
             </p>
           )}
-          <br />
           <Box
             sx={{
               width: 500,
@@ -102,6 +107,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Description"
               name="description"
@@ -116,6 +122,7 @@ const ResumeForm = (props) => {
                   color: "red",
                   fontSize: "12px",
                   lineHeight: "0px",
+                  marginBottom: "25px",
                 }}
               >
                 {errors?.description}
@@ -126,13 +133,13 @@ const ResumeForm = (props) => {
                   fontSize: "12px",
                   lineHeight: "0px",
                   visibility: "hidden",
+                  marginBottom: "25px",
                 }}
               >
                 .
               </p>
             )}
           </Box>
-          <br />
           <Box
             sx={{
               width: 500,
@@ -140,6 +147,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Phone"
               name="phone"
@@ -154,6 +162,7 @@ const ResumeForm = (props) => {
                   color: "red",
                   fontSize: "12px",
                   lineHeight: "0px",
+                  marginBottom: "25px",
                 }}
               >
                 {errors?.phone}
@@ -164,14 +173,13 @@ const ResumeForm = (props) => {
                   fontSize: "12px",
                   lineHeight: "0px",
                   visibility: "hidden",
+                  marginBottom: "25px",
                 }}
               >
                 .
               </p>
             )}
           </Box>
-
-          <br />
           <Box
             sx={{
               width: 500,
@@ -179,6 +187,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Email"
               name="email"
@@ -193,6 +202,7 @@ const ResumeForm = (props) => {
                   color: "red",
                   fontSize: "12px",
                   lineHeight: "0px",
+                  marginBottom: "25px",
                 }}
               >
                 {errors?.email}
@@ -203,14 +213,13 @@ const ResumeForm = (props) => {
                   fontSize: "12px",
                   lineHeight: "0px",
                   visibility: "hidden",
+                  marginBottom: "25px",
                 }}
               >
                 .
               </p>
             )}
           </Box>
-
-          <br />
           <Box
             sx={{
               width: 500,
@@ -218,6 +227,59 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
+              fullWidth
+              placeholder="Github"
+              name="github"
+              onChange={handleQueryChange}
+              label="Github"
+              id="github"
+            />
+            <p
+              style={{
+                fontSize: "12px",
+                lineHeight: "0px",
+                visibility: "hidden",
+                marginBottom: "25px",
+              }}
+            >
+              .
+            </p>
+          </Box>
+          <Box
+            sx={{
+              width: 500,
+              maxWidth: "100%",
+            }}
+          >
+            <TextField
+              size="small"
+              fullWidth
+              placeholder="LinkedIn"
+              name="linkedIn"
+              onChange={handleQueryChange}
+              label="LinkedIn"
+              id="linkedIn"
+            />
+            <p
+              style={{
+                fontSize: "12px",
+                lineHeight: "0px",
+                visibility: "hidden",
+                marginBottom: "25px",
+              }}
+            >
+              .
+            </p>
+          </Box>
+          <Box
+            sx={{
+              width: 500,
+              maxWidth: "100%",
+            }}
+          >
+            <TextField
+              size="small"
               fullWidth
               placeholder="Location"
               name="location"
@@ -248,8 +310,6 @@ const ResumeForm = (props) => {
               </p>
             )}
           </Box>
-
-          <br />
         </Box>
       )}
       {activeStep == 1 && (
@@ -261,6 +321,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Work Designation/Company"
               name="workDesignationAndCompany"
@@ -275,6 +336,7 @@ const ResumeForm = (props) => {
                   color: "red",
                   fontSize: "12px",
                   lineHeight: "0px",
+                  marginBottom: "25px",
                 }}
               >
                 {errors?.workDesignationAndCompany}
@@ -285,14 +347,13 @@ const ResumeForm = (props) => {
                   fontSize: "12px",
                   lineHeight: "0px",
                   visibility: "hidden",
+                  marginBottom: "25px",
                 }}
               >
                 .
               </p>
             )}
           </Box>
-
-          <br />
           <Box
             sx={{
               width: 500,
@@ -300,6 +361,47 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
+              fullWidth
+              placeholder="Work profile"
+              name="workProfile"
+              onChange={handleQueryChange}
+              label="Work profile"
+              id="workProfile"
+              error={Boolean(errors.workProfile)}
+            />
+            {errors?.workProfile?.length > 0 ? (
+              <p
+                style={{
+                  color: "red",
+                  fontSize: "12px",
+                  lineHeight: "0px",
+                  marginBottom: "25px",
+                }}
+              >
+                {errors?.workProfile}
+              </p>
+            ) : (
+              <p
+                style={{
+                  fontSize: "12px",
+                  lineHeight: "0px",
+                  visibility: "hidden",
+                  marginBottom: "25px",
+                }}
+              >
+                .
+              </p>
+            )}
+          </Box>
+          <Box
+            sx={{
+              width: 500,
+              maxWidth: "100%",
+            }}
+          >
+            <TextField
+              size="small"
               fullWidth
               placeholder="Work Period"
               name="workPeriod"
@@ -314,6 +416,7 @@ const ResumeForm = (props) => {
                   color: "red",
                   fontSize: "12px",
                   lineHeight: "0px",
+                  marginBottom: "25px",
                 }}
               >
                 {errors?.workPeriod}
@@ -324,14 +427,13 @@ const ResumeForm = (props) => {
                   fontSize: "12px",
                   lineHeight: "0px",
                   visibility: "hidden",
+                  marginBottom: "25px",
                 }}
               >
                 .
               </p>
             )}
           </Box>
-
-          <br />
           <Box
             sx={{
               width: 500,
@@ -339,6 +441,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Work Description List1"
               name="workDescriptionList1"
@@ -353,6 +456,7 @@ const ResumeForm = (props) => {
                   color: "red",
                   fontSize: "12px",
                   lineHeight: "0px",
+                  marginBottom: "25px",
                 }}
               >
                 {errors?.workDescriptionList1}
@@ -363,14 +467,13 @@ const ResumeForm = (props) => {
                   fontSize: "12px",
                   lineHeight: "0px",
                   visibility: "hidden",
+                  marginBottom: "25px",
                 }}
               >
                 .
               </p>
             )}
           </Box>
-
-          <br />
           <Box
             sx={{
               width: 500,
@@ -378,6 +481,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Work Description List2"
               name="workDescriptionList2"
@@ -390,13 +494,12 @@ const ResumeForm = (props) => {
                 fontSize: "12px",
                 lineHeight: "0px",
                 visibility: "hidden",
+                marginBottom: "25px",
               }}
             >
               .
             </p>
           </Box>
-
-          <br />
           <Box
             sx={{
               width: 500,
@@ -404,6 +507,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Work Description List3"
               name="workDescriptionList3"
@@ -437,6 +541,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Course"
               name="course"
@@ -451,6 +556,7 @@ const ResumeForm = (props) => {
                   color: "red",
                   fontSize: "12px",
                   lineHeight: "0px",
+                  marginBottom: "25px",
                 }}
               >
                 {errors?.course}
@@ -461,14 +567,13 @@ const ResumeForm = (props) => {
                   fontSize: "12px",
                   lineHeight: "0px",
                   visibility: "hidden",
+                  marginBottom: "25px",
                 }}
               >
                 .
               </p>
             )}
           </Box>
-
-          <br />
           <Box
             sx={{
               width: 500,
@@ -476,6 +581,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Institute"
               name="institute"
@@ -490,6 +596,7 @@ const ResumeForm = (props) => {
                   color: "red",
                   fontSize: "12px",
                   lineHeight: "0px",
+                  marginBottom: "25px",
                 }}
               >
                 {errors?.institute}
@@ -500,14 +607,13 @@ const ResumeForm = (props) => {
                   fontSize: "12px",
                   lineHeight: "0px",
                   visibility: "hidden",
+                  marginBottom: "25px",
                 }}
               >
                 .
               </p>
             )}
           </Box>
-
-          <br />
           <Box
             sx={{
               width: 500,
@@ -515,6 +621,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Course Period"
               name="coursePeriod"
@@ -529,6 +636,7 @@ const ResumeForm = (props) => {
                   color: "red",
                   fontSize: "12px",
                   lineHeight: "0px",
+                  marginBottom: "25px",
                 }}
               >
                 {errors?.coursePeriod}
@@ -545,8 +653,6 @@ const ResumeForm = (props) => {
               </p>
             )}
           </Box>
-
-          <br />
           <Box>
             <Button variant="contained" onClick={handleAddEducation}>
               Add
@@ -563,6 +669,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Project Title"
               name="projectTitle"
@@ -577,6 +684,7 @@ const ResumeForm = (props) => {
                   color: "red",
                   fontSize: "12px",
                   lineHeight: "0px",
+                  marginBottom: "25px",
                 }}
               >
                 {errors?.projectTitle}
@@ -587,14 +695,13 @@ const ResumeForm = (props) => {
                   fontSize: "12px",
                   lineHeight: "0px",
                   visibility: "hidden",
+                  marginBottom: "25px",
                 }}
               >
                 .
               </p>
             )}
           </Box>
-
-          <br />
           <Box
             sx={{
               width: 500,
@@ -602,6 +709,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Project Body"
               name="projectBody"
@@ -616,6 +724,7 @@ const ResumeForm = (props) => {
                   color: "red",
                   fontSize: "12px",
                   lineHeight: "0px",
+                  marginBottom: "25px",
                 }}
               >
                 {errors?.projectBody}
@@ -626,14 +735,13 @@ const ResumeForm = (props) => {
                   fontSize: "12px",
                   lineHeight: "0px",
                   visibility: "hidden",
+                  marginBottom: "25px",
                 }}
               >
                 .
               </p>
             )}
           </Box>
-
-          <br />
           <Box
             sx={{
               width: 500,
@@ -641,6 +749,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Project Description List1"
               name="projectDescriptionList1"
@@ -655,6 +764,7 @@ const ResumeForm = (props) => {
                   color: "red",
                   fontSize: "12px",
                   lineHeight: "0px",
+                  marginBottom: "25px",
                 }}
               >
                 {errors?.projectDescriptionList1}
@@ -665,14 +775,13 @@ const ResumeForm = (props) => {
                   fontSize: "12px",
                   lineHeight: "0px",
                   visibility: "hidden",
+                  marginBottom: "25px",
                 }}
               >
                 .
               </p>
             )}
           </Box>
-
-          <br />
           <Box
             sx={{
               width: 500,
@@ -680,6 +789,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Project Description List2"
               name="projectDescriptionList2"
@@ -692,13 +802,12 @@ const ResumeForm = (props) => {
                 fontSize: "12px",
                 lineHeight: "0px",
                 visibility: "hidden",
+                marginBottom: "25px",
               }}
             >
               .
             </p>
           </Box>
-
-          <br />
           <Box
             sx={{
               width: 500,
@@ -706,6 +815,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Project Description List3"
               name="projectDescriptionList3"
@@ -723,8 +833,6 @@ const ResumeForm = (props) => {
               .
             </p>
           </Box>
-
-          <br />
           <Box>
             <Button variant="contained" onClick={handleAddProjectData}>
               Add
@@ -741,6 +849,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              size="small"
               fullWidth
               placeholder="Skills"
               name="skills"
