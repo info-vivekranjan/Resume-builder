@@ -18,12 +18,13 @@ const ResumeTemplate1 = (props) => {
     addWorkExperience,
     addProjectData,
     addSkill,
+    getStringAfterDotCom,
   } = props;
   return (
     <>
       <Grid container>
         <Grid item xs={12} sx={{ p: "10px" }}>
-          <h1 className="nameHead">{query?.name || "Your Name"}</h1>
+          <h1 className="nameHead">{query?.name || "Name"}</h1>
           <h4 className="jobTitleClass">{query?.jobtitle || "Job Title"}</h4>
         </Grid>
         <Grid item xs={8} sx={{ p: "10px" }}>
@@ -44,6 +45,7 @@ const ResumeTemplate1 = (props) => {
             {query?.description ||
               "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident."}
           </Typography>
+
           <Stack
             direction="row"
             alignItems="center"
@@ -79,6 +81,7 @@ const ResumeTemplate1 = (props) => {
               );
             })}
           </>
+
           <Stack
             direction="row"
             alignItems="center"
@@ -98,9 +101,18 @@ const ResumeTemplate1 = (props) => {
               return (
                 <Box className="workexBox">
                   {item.workDesignationAndCompany && (
-                    <h4>{item.workDesignationAndCompany}</h4>
+                    <h4 style={{ lineHeight: "0px" }}>
+                      {item.workDesignationAndCompany}
+                    </h4>
                   )}
-                  {item.workPeriod && <small>{item.workPeriod}</small>}
+                  {item.workProfile && (
+                    <h5 style={{ lineHeight: "0px" }}>{item.workProfile}</h5>
+                  )}
+                  {item.workPeriod && (
+                    <small style={{ lineHeight: "0px" }}>
+                      {item.workPeriod}
+                    </small>
+                  )}
                   <ul>
                     {item.workDescriptionList1 && (
                       <li>{item.workDescriptionList1}</li>
@@ -133,7 +145,51 @@ const ResumeTemplate1 = (props) => {
           <Divider />
           <Typography>{query?.location || "Location"}</Typography>
           <Typography>{query?.phone || "Phone"}</Typography>
-          <Typography>{query?.email || "Email"}</Typography>
+          <Typography>
+            {(query?.email && (
+              <>
+                <a
+                  href={`mailto:${query?.email}`}
+                  target="_blank"
+                  style={{ color: titleColor }}
+                >
+                  {query?.email}
+                </a>
+              </>
+            )) ||
+              "Email"}
+          </Typography>
+          <Typography>
+            {(query?.github && (
+              <>
+                Github :{" "}
+                <a
+                  href={query?.github}
+                  target="_blank"
+                  style={{ color: titleColor }}
+                >
+                  {getStringAfterDotCom(query?.github)}
+                </a>
+              </>
+            )) ||
+              "Github"}
+          </Typography>
+          <Typography>
+            {(query?.linkedIn && (
+              <>
+                LinkedIn :{" "}
+                <a
+                  href={query?.linkedIn}
+                  target="_blank"
+                  style={{ color: titleColor }}
+                >
+                  {getStringAfterDotCom(query?.linkedIn)}
+                </a>
+              </>
+            )) ||
+              "LinkedIn"}
+          </Typography>
+
           <Stack
             direction="row"
             alignItems="center"

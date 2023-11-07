@@ -18,6 +18,7 @@ const ResumeTemplate0 = (props) => {
     addWorkExperience,
     addProjectData,
     addSkill,
+    getStringAfterDotCom,
   } = props;
   return (
     <>
@@ -88,9 +89,18 @@ const ResumeTemplate0 = (props) => {
               return (
                 <Box className="workexBox">
                   {item.workDesignationAndCompany && (
-                    <h4>{item.workDesignationAndCompany}</h4>
+                    <h4 style={{ lineHeight: "0px" }}>
+                      {item.workDesignationAndCompany}
+                    </h4>
                   )}
-                  {item.workPeriod && <small>{item.workPeriod}</small>}
+                  {item.workProfile && (
+                    <h5 style={{ lineHeight: "0px" }}>{item.workProfile}</h5>
+                  )}
+                  {item.workPeriod && (
+                    <small style={{ lineHeight: "0px" }}>
+                      {item.workPeriod}
+                    </small>
+                  )}
                   <ul>
                     {item.workDescriptionList1 && (
                       <li>{item.workDescriptionList1}</li>
@@ -123,9 +133,52 @@ const ResumeTemplate0 = (props) => {
           <Divider />
           <Typography>{query?.location || "Location"}</Typography>
           <Typography>{query?.phone || "Phone"}</Typography>
-          <Typography>{query?.email || "Email"}</Typography>
-          <Typography>{query?.github || "Github"}</Typography>
-          <Typography>{query?.linkedIn || "LinkedIn"}</Typography>
+          <Typography>
+            {(query?.email && (
+              <>
+                Email :{" "}
+                <a
+                  href={`mailto:${query?.email}`}
+                  target="_blank"
+                  style={{ color: titleColor }}
+                >
+                  {query?.email}
+                </a>
+              </>
+            )) ||
+              "Email"}
+          </Typography>
+          <Typography>
+            {(query?.github && (
+              <>
+                Github :{" "}
+                <a
+                  href={query?.github}
+                  target="_blank"
+                  style={{ color: titleColor }}
+                >
+                  {getStringAfterDotCom(query?.github)}
+                </a>
+              </>
+            )) ||
+              "Github"}
+          </Typography>
+          <Typography>
+            {(query?.linkedIn && (
+              <>
+                LinkedIn :{" "}
+                <a
+                  href={query?.linkedIn}
+                  target="_blank"
+                  style={{ color: titleColor }}
+                >
+                  {getStringAfterDotCom(query?.linkedIn)}
+                </a>
+              </>
+            )) ||
+              "LinkedIn"}
+          </Typography>
+
           <Stack
             direction="row"
             alignItems="center"

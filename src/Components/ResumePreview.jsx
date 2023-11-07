@@ -14,6 +14,19 @@ const ResumePreview = (props) => {
     selectedTemplate
   } = props;
 
+  function getStringAfterDotCom(url) {
+    // Check if the URL contains ".com"
+    const indexOfDotCom = url.indexOf(".com");
+    
+    if (indexOfDotCom !== -1) {
+      // Return the substring that comes after ".com"
+      return url.substring(indexOfDotCom + 4);
+    } else {
+      // If ".com" is not found, return an empty string
+      return "Put the full link like https://abc.com/xyz";
+    }
+  }
+
   let templateComponent;
   switch (selectedTemplate) {
     case "Template1":
@@ -25,6 +38,7 @@ const ResumePreview = (props) => {
           addWorkExperience={addWorkExperience}
           addProjectData={addProjectData}
           addSkill={addSkill}
+          getStringAfterDotCom={getStringAfterDotCom}
         />
       );
       break;
@@ -37,6 +51,7 @@ const ResumePreview = (props) => {
             addWorkExperience={addWorkExperience}
             addProjectData={addProjectData}
             addSkill={addSkill}
+            getStringAfterDotCom={getStringAfterDotCom}
           />
         );
         break;

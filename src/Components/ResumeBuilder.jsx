@@ -1,6 +1,7 @@
 import React from "react";
 import ReactToPrint from "react-to-print";
 import * as Yup from "yup";
+import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -29,12 +30,21 @@ import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import FormatColorTextIcon from "@mui/icons-material/FormatColorText";
-
+import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
 import ResumeForm from "./ResumeForm";
 import ResumePreview from "./ResumePreview";
+
+// Resume Templates
+import Template1 from "../Utils/images/Template1.png";
+import Template2 from "../Utils/images/Template2.png";
+
+const imageTemplates = {
+  Template1,
+  Template2,
+};
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -116,15 +126,15 @@ const initState = {
   description: "",
   phone: "",
   email: "",
-  github:"",
-  linkedIn:"",
+  github: "",
+  linkedIn: "",
   location: "",
   skills: "",
   course: "",
   institute: "",
   coursePeriod: "",
   workDesignationAndCompany: "",
-  workProfile:"",
+  workProfile: "",
   workPeriod: "",
   workDescriptionList1: "",
   workDescriptionList2: "",
@@ -147,6 +157,18 @@ const themeColor = createTheme({
   },
 });
 
+const templateModelStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 800,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -165,6 +187,7 @@ export default function ResumeBuilder() {
   const [snackbarMessage, setSnackbarMessage] = React.useState("");
   const [titleColor, setTitleColor] = React.useState("#1B6392");
   const [selectedTemplate, setSelectedTemplate] = React.useState("Template1");
+  const [openTemplateModel, setOpenTemplateModel] = React.useState(false);
 
   const handleTemplateChange = (template) => {
     setSelectedTemplate(template);
@@ -417,7 +440,7 @@ export default function ResumeBuilder() {
         setQuery({
           ...query,
           workDesignationAndCompany: "",
-          workProfile:"",
+          workProfile: "",
           workPeriod: "",
           workDescriptionList1: "",
           workDescriptionList2: "",
@@ -427,7 +450,7 @@ export default function ResumeBuilder() {
         setErrors({
           ...errors,
           workDesignationAndCompany: "",
-          workProfile:"",
+          workProfile: "",
           workPeriod: "",
           workDescriptionList1: "",
           workDescriptionList2: "",
@@ -567,13 +590,60 @@ export default function ResumeBuilder() {
                 Title Color
               </Button>
             </label>
-            <select
-              value={selectedTemplate}
-              onChange={(e) => handleTemplateChange(e.target.value)}
+            <Button
+              variant="outlined"
+              component="span"
+              size="small"
+              endIcon={<PhotoLibraryIcon />}
+              onClick={() => setOpenTemplateModel(true)}
+              sx={{ marginLeft: "10px" }}
             >
-              <option value="Template1">Template 1</option>
-              <option value="Template2">Template 2</option>
-            </select>
+              Template Options
+            </Button>
+            <Modal
+              open={openTemplateModel}
+              onClose={() => setOpenTemplateModel(false)}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={templateModelStyle}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Select template
+                </Typography>
+                <Divider />
+                <Box
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    marginTop: "25px",
+                  }}
+                >
+                  {Object.entries(imageTemplates).map(([key, image]) => (
+                    <div
+                      key={key}
+                      onClick={() => handleTemplateChange(key)}
+                      style={{
+                        cursor: "pointer",
+                        margin: "5px",
+                      }}
+                    >
+                      <img
+                        src={image}
+                        alt={key}
+                        style={{
+                          border:
+                            key === selectedTemplate
+                              ? "2px solid #186948"
+                              : "2px solid transparent",
+                          width: "300px",
+                          height: "300px",
+                        }}
+                      />
+                    </div>
+                  ))}
+                </Box>
+              </Box>
+            </Modal>
           </Box>
           {activeStep === steps.length ? (
             <React.Fragment>
