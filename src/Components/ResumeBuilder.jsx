@@ -40,10 +40,12 @@ import ResumePreview from "./ResumePreview";
 // Resume Templates
 import Template1 from "../Utils/images/Template1.png";
 import Template2 from "../Utils/images/Template2.png";
+import Template3 from "../Utils/images/Template3.png";
 
 const imageTemplates = {
   Template1,
   Template2,
+  Template3,
 };
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
@@ -216,9 +218,7 @@ export default function ResumeBuilder() {
       name: Yup.string().required("Name is required"),
       jobtitle: Yup.string().required("Job title is required"),
       description: Yup.string().required("Description is required"),
-      phone: Yup.string().required("Phone number is required"),
       email: Yup.string().email("Invalid Email").required("Email is required"),
-      location: Yup.string().required("Location is required"),
     }),
     Yup.object().shape({
       workDesignationAndCompany: Yup.string().required("Company is required"),
@@ -634,9 +634,9 @@ export default function ResumeBuilder() {
                           border:
                             key === selectedTemplate
                               ? "2px solid #186948"
-                              : "2px solid transparent",
-                          width: "300px",
-                          height: "300px",
+                              : "1px solid gray",
+                          width: "350px",
+                          height: "350px",
                         }}
                       />
                     </div>
