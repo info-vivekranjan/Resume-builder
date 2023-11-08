@@ -659,17 +659,22 @@ export default function ResumeBuilder() {
                   )}
                   content={() => inputRef.current}
                 />
-                <Box sx={{ p: "40px", pt: "0px" }} ref={inputRef}>
-                  <ResumePreview
-                    query={query}
-                    titleColor={titleColor}
-                    addEducation={addEducation}
-                    addWorkExperience={addWorkExperience}
-                    addProjectData={addProjectData}
-                    addSkill={addSkill}
-                    selectedTemplate={selectedTemplate}
-                  />
-                </Box>
+                <Paper
+                  elevation={3}
+                  style={{ minHeight: "100vh", marginTop: "15px" }}
+                >
+                  <Box sx={{ p: "40px", pt: "0px" }} ref={inputRef}>
+                    <ResumePreview
+                      query={query}
+                      titleColor={titleColor}
+                      addEducation={addEducation}
+                      addWorkExperience={addWorkExperience}
+                      addProjectData={addProjectData}
+                      addSkill={addSkill}
+                      selectedTemplate={selectedTemplate}
+                    />
+                  </Box>
+                </Paper>
               </Box>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
@@ -690,51 +695,58 @@ export default function ResumeBuilder() {
                     handleAddProjectData={handleAddProjectData}
                     handleAddWorkExperience={handleAddWorkExperience}
                     handleAddSkills={handleAddSkills}
-                    query = {query}
+                    query={query}
                   />
+                  <Box
+                    sx={{ display: "flex", flexDirection: "row", pt: 2, pr: 4 }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="inherit"
+                      disabled={activeStep === 0}
+                      onClick={handleBack}
+                      sx={{ mr: 1, color: "rgb(204, 71, 85)" }}
+                    >
+                      Back
+                    </Button>
+                    <Box sx={{ flex: "1 1 auto" }} />
+                    {isStepOptional(activeStep) && (
+                      <Button
+                        variant="contained"
+                        color="inherit"
+                        onClick={handleSkip}
+                        sx={{ mr: 1, color: "rgb(204, 71, 85)" }}
+                      >
+                        Skip
+                      </Button>
+                    )}
+
+                    <Button variant="contained" onClick={handleNext}>
+                      {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                    </Button>
+                  </Box>
                 </Grid>
                 <Grid item xs={6}>
                   <Box>
-                    <Box sx={{ p: "40px", pt: "0px" }}>
-                      <ResumePreview
-                        query={query}
-                        titleColor={titleColor}
-                        addEducation={addEducation}
-                        addWorkExperience={addWorkExperience}
-                        addProjectData={addProjectData}
-                        addSkill={addSkill}
-                        selectedTemplate={selectedTemplate}
-                      />
-                    </Box>
+                    <Paper
+                      elevation={3}
+                      style={{ maxHeight: "75vh", marginTop: "15px", overflowY:"scroll" }}
+                    >
+                      <Box sx={{ p: "40px" }}>
+                        <ResumePreview
+                          query={query}
+                          titleColor={titleColor}
+                          addEducation={addEducation}
+                          addWorkExperience={addWorkExperience}
+                          addProjectData={addProjectData}
+                          addSkill={addSkill}
+                          selectedTemplate={selectedTemplate}
+                        />
+                      </Box>
+                    </Paper>
                   </Box>
                 </Grid>
               </Grid>
-              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                <Button
-                  variant="contained"
-                  color="inherit"
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{ mr: 1, color: "rgb(204, 71, 85)" }}
-                >
-                  Back
-                </Button>
-                <Box sx={{ flex: "1 1 auto" }} />
-                {isStepOptional(activeStep) && (
-                  <Button
-                    variant="contained"
-                    color="inherit"
-                    onClick={handleSkip}
-                    sx={{ mr: 1, color: "rgb(204, 71, 85)" }}
-                  >
-                    Skip
-                  </Button>
-                )}
-
-                <Button variant="contained" onClick={handleNext}>
-                  {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                </Button>
-              </Box>
             </React.Fragment>
           )}
         </Box>
