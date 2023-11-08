@@ -217,7 +217,6 @@ export default function ResumeBuilder() {
     Yup.object().shape({
       name: Yup.string().required("Name is required"),
       jobtitle: Yup.string().required("Job title is required"),
-      description: Yup.string().required("Description is required"),
       email: Yup.string().email("Invalid Email").required("Email is required"),
     }),
     Yup.object().shape({
@@ -691,6 +690,7 @@ export default function ResumeBuilder() {
                     handleAddProjectData={handleAddProjectData}
                     handleAddWorkExperience={handleAddWorkExperience}
                     handleAddSkills={handleAddSkills}
+                    query = {query}
                   />
                 </Grid>
                 <Grid item xs={6}>

@@ -61,13 +61,12 @@ const ResumeTemplate2 = (props) => {
             <Typography>
               {(query?.github && (
                 <>
-                  Github :{" "}
                   <a
                     href={query?.github}
                     target="_blank"
                     style={{ color: titleColor }}
                   >
-                    {getStringAfterDotCom(query?.github)}
+                    Github
                   </a>
                 </>
               )) ||
@@ -77,13 +76,12 @@ const ResumeTemplate2 = (props) => {
             <Typography>
               {(query?.linkedIn && (
                 <>
-                  LinkedIn :{" "}
                   <a
                     href={query?.linkedIn}
                     target="_blank"
                     style={{ color: titleColor }}
                   >
-                    {getStringAfterDotCom(query?.linkedIn)}
+                    LinkedIn
                   </a>
                 </>
               )) ||

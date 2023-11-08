@@ -13,6 +13,7 @@ const ResumeForm = (props) => {
     handleAddProjectData,
     handleAddWorkExperience,
     handleAddSkills,
+    query,
   } = props;
 
   return (
@@ -26,6 +27,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.name}
               size="small"
               fullWidth
               placeholder="Name"
@@ -67,6 +69,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.jobtitle}
               size="small"
               fullWidth
               placeholder="Job title"
@@ -107,6 +110,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.description}
               size="small"
               fullWidth
               placeholder="Description"
@@ -147,6 +151,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.phone}
               size="small"
               fullWidth
               placeholder="Phone"
@@ -187,6 +192,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.email}
               size="small"
               fullWidth
               placeholder="Email"
@@ -227,6 +233,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.github}
               size="small"
               fullWidth
               placeholder="Github"
@@ -253,6 +260,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.linkedIn}
               size="small"
               fullWidth
               placeholder="LinkedIn"
@@ -279,6 +287,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.location}
               size="small"
               fullWidth
               placeholder="Location"
@@ -323,6 +332,7 @@ const ResumeForm = (props) => {
             <TextField
               size="small"
               fullWidth
+              value={query.workDesignationAndCompany}
               placeholder="Work Designation/Company"
               name="workDesignationAndCompany"
               onChange={handleQueryChange}
@@ -361,6 +371,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.workProfile}
               size="small"
               fullWidth
               placeholder="Work profile"
@@ -401,6 +412,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.workPeriod}
               size="small"
               fullWidth
               placeholder="Work Period"
@@ -441,6 +453,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.workDescriptionList1}
               size="small"
               fullWidth
               placeholder="Work Description List1"
@@ -481,6 +494,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.workDescriptionList2}
               size="small"
               fullWidth
               placeholder="Work Description List2"
@@ -507,6 +521,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.workDescriptionList3}
               size="small"
               fullWidth
               placeholder="Work Description List3"
@@ -541,6 +556,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.course}
               size="small"
               fullWidth
               placeholder="Course"
@@ -581,6 +597,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.institute}
               size="small"
               fullWidth
               placeholder="Institute"
@@ -621,6 +638,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.coursePeriod}
               size="small"
               fullWidth
               placeholder="Course Period"
@@ -669,6 +687,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.projectTitle}
               size="small"
               fullWidth
               placeholder="Project Title"
@@ -709,6 +728,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.projectBody}
               size="small"
               fullWidth
               placeholder="Project Body"
@@ -749,6 +769,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.projectDescriptionList1}
               size="small"
               fullWidth
               placeholder="Project Description List1"
@@ -789,6 +810,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.projectDescriptionList2}
               size="small"
               fullWidth
               placeholder="Project Description List2"
@@ -815,6 +837,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.projectDescriptionList3}
               size="small"
               fullWidth
               placeholder="Project Description List3"
@@ -849,6 +872,7 @@ const ResumeForm = (props) => {
             }}
           >
             <TextField
+              value={query.skills}
               size="small"
               fullWidth
               placeholder="Skills"
