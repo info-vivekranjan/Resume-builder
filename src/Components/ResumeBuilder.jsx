@@ -8,17 +8,13 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import "./ResumeBuilder.css";
 import { Divider } from "@mui/material";
-import TrackChangesIcon from "@mui/icons-material/TrackChanges";
 import SchoolIcon from "@mui/icons-material/School";
-import EmailIcon from "@mui/icons-material/Email";
 import ExtensionIcon from "@mui/icons-material/Extension";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import { Stack } from "@mui/system";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -41,11 +37,15 @@ import ResumePreview from "./ResumePreview";
 import Template1 from "../Utils/images/Template1.png";
 import Template2 from "../Utils/images/Template2.png";
 import Template3 from "../Utils/images/Template3.png";
+import Template4 from "../Utils/images/Template4.png";
+import Template5 from "../Utils/images/Template5.png";
 
 const imageTemplates = {
   Template1,
   Template2,
   Template3,
+  Template4,
+  Template5,
 };
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
@@ -164,11 +164,13 @@ const templateModelStyle = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 800,
+  width: "45vw",
+  height: "80vh",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  overflowY: "scroll",
 };
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -190,6 +192,15 @@ export default function ResumeBuilder() {
   const [titleColor, setTitleColor] = React.useState("#1B6392");
   const [selectedTemplate, setSelectedTemplate] = React.useState("Template1");
   const [openTemplateModel, setOpenTemplateModel] = React.useState(false);
+  const [selectedImage, setSelectedImage] = React.useState(null);
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // You can handle the selected image here, for example, by displaying a preview.
+      setSelectedImage(URL.createObjectURL(file));
+    }
+  };
 
   const handleTemplateChange = (template) => {
     setSelectedTemplate(template);
@@ -341,12 +352,6 @@ export default function ResumeBuilder() {
     setActiveStep(0);
   };
 
-  // const handleAddSkills = () => {
-  //   let payload = {
-  //     skill: query.skills,
-  //   };
-  //   setAddSkill([...addSkill, payload]);
-  // };
   const handleAddSkills = () => {
     validationSchema[activeStep]
       .validate(query, { abortEarly: false })
@@ -366,15 +371,6 @@ export default function ResumeBuilder() {
         setErrors({ ...errors, ...fieldErrors });
       });
   };
-
-  // const handleAddEducation = () => {
-  //   let payload = {
-  //     course: query.course,
-  //     institute: query.institute,
-  //     coursePeriod: query.coursePeriod,
-  //   };
-  //   setAddEducation([...addEducation, payload]);
-  // };
 
   const handleAddEducation = () => {
     validationSchema[activeStep]
@@ -409,18 +405,6 @@ export default function ResumeBuilder() {
         setErrors({ ...errors, ...fieldErrors });
       });
   };
-
-  // const handleAddWorkExperience = () => {
-  //   let payload = {
-  //     workDesignationAndCompany: query.workDesignationAndCompany,
-  //     workPeriod: query.workPeriod,
-  //     workDescriptionList1: query.workDescriptionList1,
-  //     workDescriptionList2: query.workDescriptionList2,
-  //     workDescriptionList3: query.workDescriptionList3,
-  //   };
-
-  //   setAddWorkExperience([...addWorkExperience, payload]);
-  // };
 
   const handleAddWorkExperience = () => {
     validationSchema[activeStep]
@@ -464,17 +448,6 @@ export default function ResumeBuilder() {
         setErrors({ ...errors, ...fieldErrors });
       });
   };
-  // const handleAddProjectData = () => {
-  //   let payload = {
-  //     projectTitle: query.projectTitle,
-  //     projectBody: query.projectBody,
-  //     projectDescriptionList1: query.projectDescriptionList1,
-  //     projectDescriptionList2: query.projectDescriptionList2,
-  //     projectDescriptionList3: query.projectDescriptionList3,
-  //   };
-
-  //   setAddProjectData([...addProjectData, payload]);
-  // };
 
   const handleAddProjectData = () => {
     validationSchema[activeStep]
@@ -646,8 +619,7 @@ export default function ResumeBuilder() {
           </Box>
           {activeStep === steps.length ? (
             <React.Fragment>
-              <Box style={{ width: "40%", margin: "auto", marginTop: "30px" }}>
-                {/* <Button variant="outlined" endIcon={<FileDownloadIcon />} onClick={printDocument}>Download</Button> */}
+              <Box style={{ width: "800px", margin: "auto", marginTop: "30px" }}>
                 <ReactToPrint
                   trigger={() => (
                     <Button
@@ -663,7 +635,7 @@ export default function ResumeBuilder() {
                   elevation={3}
                   style={{ minHeight: "100vh", marginTop: "15px" }}
                 >
-                  <Box sx={{ p: "40px", pt: "0px" }} ref={inputRef}>
+                  <Box ref={inputRef}>
                     <ResumePreview
                       query={query}
                       titleColor={titleColor}
@@ -672,6 +644,7 @@ export default function ResumeBuilder() {
                       addProjectData={addProjectData}
                       addSkill={addSkill}
                       selectedTemplate={selectedTemplate}
+                      selectedImage={selectedImage}
                     />
                   </Box>
                 </Paper>
@@ -696,6 +669,8 @@ export default function ResumeBuilder() {
                     handleAddWorkExperience={handleAddWorkExperience}
                     handleAddSkills={handleAddSkills}
                     query={query}
+                    handleImageChange={handleImageChange}
+                    selectedImage={selectedImage}
                   />
                   <Box
                     sx={{ display: "flex", flexDirection: "row", pt: 2, pr: 4 }}
@@ -730,9 +705,13 @@ export default function ResumeBuilder() {
                   <Box>
                     <Paper
                       elevation={3}
-                      style={{ maxHeight: "75vh", marginTop: "15px", overflowY:"scroll" }}
+                      style={{
+                        maxHeight: "75vh",
+                        marginTop: "15px",
+                        overflowY: "scroll",
+                      }}
                     >
-                      <Box sx={{ p: "40px" }}>
+                      <Box>
                         <ResumePreview
                           query={query}
                           titleColor={titleColor}
@@ -741,6 +720,7 @@ export default function ResumeBuilder() {
                           addProjectData={addProjectData}
                           addSkill={addSkill}
                           selectedTemplate={selectedTemplate}
+                          selectedImage={selectedImage}
                         />
                       </Box>
                     </Paper>

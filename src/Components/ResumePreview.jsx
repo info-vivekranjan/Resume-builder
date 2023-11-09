@@ -3,6 +3,8 @@ import "./ResumeBuilder.css";
 import ResumeTemplate0 from "./Templates/ResumeTemplate0";
 import ResumeTemplate1 from "./Templates/ResumeTemplate1";
 import ResumeTemplate2 from "./Templates/ResumeTemplate2";
+import ResumeTemplate3 from "./Templates/ResumeTemplate3";
+import ResumeTemplate4 from "./Templates/ResumeTemplate4";
 
 const ResumePreview = (props) => {
   const {
@@ -13,6 +15,7 @@ const ResumePreview = (props) => {
     addProjectData,
     addSkill,
     selectedTemplate,
+    selectedImage,
   } = props;
 
   function getStringAfterDotCom(url) {
@@ -67,6 +70,36 @@ const ResumePreview = (props) => {
           addProjectData={addProjectData}
           addSkill={addSkill}
           getStringAfterDotCom={getStringAfterDotCom}
+        />
+      );
+      break;
+
+    case "Template4":
+      templateComponent = (
+        <ResumeTemplate3
+          query={query}
+          titleColor={titleColor}
+          addEducation={addEducation}
+          addWorkExperience={addWorkExperience}
+          addProjectData={addProjectData}
+          addSkill={addSkill}
+          getStringAfterDotCom={getStringAfterDotCom}
+          selectedImage={selectedImage}
+        />
+      );
+      break;
+
+    case "Template5":
+      templateComponent = (
+        <ResumeTemplate4
+          query={query}
+          titleColor={titleColor}
+          addEducation={addEducation}
+          addWorkExperience={addWorkExperience}
+          addProjectData={addProjectData}
+          addSkill={addSkill}
+          getStringAfterDotCom={getStringAfterDotCom}
+          selectedImage={selectedImage}
         />
       );
       break;

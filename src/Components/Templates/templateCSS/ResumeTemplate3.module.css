@@ -1,0 +1,37 @@
+.nameHead {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 35px;
+  }
+  
+  .jobTitleClass {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  
+  .subHeadingsTitle {
+    margin-bottom: 0px;
+  }
+  
+  .subHeadingStack {
+    margin-top: 5px;
+  }
+  
+  .educationBox h4 {
+    margin-bottom: 2px;
+    margin-top: 10px;
+  }
+  
+  .educationBox p {
+    margin-top: 2px;
+    margin-bottom: 3px;
+  }
+  
+  .educationBox small {
+    margin-bottom: 2px;
+  }
+  
+  .workexBox h4 {
+    margin-bottom: 2px;
+  }
+  

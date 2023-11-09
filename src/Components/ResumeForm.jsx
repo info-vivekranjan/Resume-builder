@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import "./ResumeBuilder.css";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
+import user from "../Utils/logos/user.svg";
 
 const ResumeForm = (props) => {
   const {
@@ -14,12 +16,44 @@ const ResumeForm = (props) => {
     handleAddWorkExperience,
     handleAddSkills,
     query,
+    handleImageChange,
+    selectedImage,
   } = props;
 
   return (
     <>
       {activeStep == 0 && (
-        <Box sx={{ mt: 2, mb: 1 }}>
+        <Box sx={{ marginTop: "-35px", mb: 1 }}>
+          <label htmlFor="profile-img">
+            <input
+              id="profile-img"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              style={{ display: "none" }}
+            />
+            {selectedImage ? (
+              <img
+                src={selectedImage}
+                alt="profile"
+                style={{
+                  width: "100px",
+                  cursor: "pointer",
+                  border: "2px solid silver",
+                  borderRadius: "50%",
+                }}
+                title="Profile Image"
+              />
+            ) : (
+              <img
+                src={user}
+                alt="profile"
+                style={{ width: "100px", cursor: "pointer" }}
+                title="Profile Image"
+              />
+            )}
+          </label>
+
           <Box
             sx={{
               width: 500,
