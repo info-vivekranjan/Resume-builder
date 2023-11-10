@@ -5,6 +5,8 @@ import ResumeTemplate1 from "./Templates/ResumeTemplate1";
 import ResumeTemplate2 from "./Templates/ResumeTemplate2";
 import ResumeTemplate3 from "./Templates/ResumeTemplate3";
 import ResumeTemplate4 from "./Templates/ResumeTemplate4";
+import ResumeTemplate5 from "./Templates/ResumeTemplate5";
+import ResumeTemplate6 from "./Templates/ResumeTemplate6";
 
 const ResumePreview = (props) => {
   const {
@@ -92,6 +94,36 @@ const ResumePreview = (props) => {
     case "Template5":
       templateComponent = (
         <ResumeTemplate4
+          query={query}
+          titleColor={titleColor}
+          addEducation={addEducation}
+          addWorkExperience={addWorkExperience}
+          addProjectData={addProjectData}
+          addSkill={addSkill}
+          getStringAfterDotCom={getStringAfterDotCom}
+          selectedImage={selectedImage}
+        />
+      );
+      break;
+
+    case "Template6":
+      templateComponent = (
+        <ResumeTemplate5
+          query={query}
+          titleColor={titleColor}
+          addEducation={addEducation}
+          addWorkExperience={addWorkExperience}
+          addProjectData={addProjectData}
+          addSkill={addSkill}
+          getStringAfterDotCom={getStringAfterDotCom}
+          selectedImage={selectedImage}
+        />
+      );
+      break;
+
+    case "Template7":
+      templateComponent = (
+        <ResumeTemplate6
           query={query}
           titleColor={titleColor}
           addEducation={addEducation}

@@ -39,6 +39,8 @@ import Template2 from "../Utils/images/Template2.png";
 import Template3 from "../Utils/images/Template3.png";
 import Template4 from "../Utils/images/Template4.png";
 import Template5 from "../Utils/images/Template5.png";
+import Template6 from "../Utils/images/Template6.png";
+import Template7 from "../Utils/images/Template7.png";
 
 const imageTemplates = {
   Template1,
@@ -46,6 +48,8 @@ const imageTemplates = {
   Template3,
   Template4,
   Template5,
+  Template6,
+  Template7
 };
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
@@ -579,7 +583,7 @@ export default function ResumeBuilder() {
               aria-describedby="modal-modal-description"
             >
               <Box sx={templateModelStyle}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
+                <Typography id="modal-modal-title" variant="h4" component="h2">
                   Select template
                 </Typography>
                 <Divider />
@@ -619,7 +623,9 @@ export default function ResumeBuilder() {
           </Box>
           {activeStep === steps.length ? (
             <React.Fragment>
-              <Box style={{ width: "800px", margin: "auto", marginTop: "30px" }}>
+              <Box
+                style={{ width: "800px", margin: "auto", marginTop: "30px" }}
+              >
                 <ReactToPrint
                   trigger={() => (
                     <Button
