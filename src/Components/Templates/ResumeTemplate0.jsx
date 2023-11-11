@@ -24,8 +24,12 @@ const ResumeTemplate0 = (props) => {
     <>
       <Grid container>
         <Grid item xs={12} sx={{ p: "10px" }}>
-          <h1 className="nameHead">{query?.name || "Name"}</h1>
-          <h4 className="jobTitleClass">{query?.jobtitle || "Job Title"}</h4>
+          <h1 className="nameHead" style={{ color: titleColor }}>
+            {query?.name || "Name"}
+          </h1>
+          <h4 className="jobTitleClass" style={{ color: titleColor }}>
+            {query?.jobtitle || "Job Title"}
+          </h4>
         </Grid>
         <Grid item xs={7} sx={{ p: "10px" }}>
           <Stack
@@ -41,7 +45,7 @@ const ResumeTemplate0 = (props) => {
             </Typography>
           </Stack>
           <Divider />
-          <Typography>
+          <Typography style={{ fontSize: "14px" }}>
             {query?.description ||
               "The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident."}
           </Typography>
@@ -101,7 +105,7 @@ const ResumeTemplate0 = (props) => {
                       {item.workPeriod}
                     </small>
                   )}
-                  <ul>
+                  <ul style={{ fontSize: "14px" }}>
                     {item.workDescriptionList1 && (
                       <li>{item.workDescriptionList1}</li>
                     )}
@@ -131,9 +135,13 @@ const ResumeTemplate0 = (props) => {
             </Typography>
           </Stack>
           <Divider />
-          <Typography>{query?.location || "Location"}</Typography>
-          <Typography>{query?.phone || "Phone"}</Typography>
-          <Typography>
+          <Typography style={{ fontSize: "14px" }}>
+            {query?.location || "Location"}
+          </Typography>
+          <Typography style={{ fontSize: "14px" }}>
+            {query?.phone || "Phone"}
+          </Typography>
+          <Typography style={{ fontSize: "14px" }}>
             {(query?.email && (
               <>
                 Email :{" "}
@@ -148,7 +156,7 @@ const ResumeTemplate0 = (props) => {
             )) ||
               "Email"}
           </Typography>
-          <Typography>
+          <Typography style={{ fontSize: "14px" }}>
             {(query?.github && (
               <>
                 Github :{" "}
@@ -163,7 +171,7 @@ const ResumeTemplate0 = (props) => {
             )) ||
               "Github"}
           </Typography>
-          <Typography>
+          <Typography style={{ fontSize: "14px" }}>
             {(query?.linkedIn && (
               <>
                 LinkedIn :{" "}
@@ -199,7 +207,7 @@ const ResumeTemplate0 = (props) => {
                 <Box className="workexBox">
                   {item.projectTitle && <h4>{item.projectTitle}</h4>}
                   {item.projectBody && <small>{item.projectBody}</small>}
-                  <ul>
+                  <ul style={{ fontSize: "14px" }}>
                     {item.projectDescriptionList1 && (
                       <li>{item.projectDescriptionList1}</li>
                     )}
@@ -227,7 +235,7 @@ const ResumeTemplate0 = (props) => {
             </Typography>
           </Stack>
           <Divider />
-          <ul>
+          <ul style={{ fontSize: "14px" }}>
             {addSkill.map((item) => {
               return <>{item.skill && <li>{item.skill}</li>}</>;
             })}
