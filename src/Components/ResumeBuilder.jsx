@@ -49,7 +49,7 @@ const imageTemplates = {
   Template4,
   Template5,
   Template6,
-  Template7
+  Template7,
 };
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
@@ -354,6 +354,15 @@ export default function ResumeBuilder() {
 
   const handleReset = () => {
     setActiveStep(0);
+
+    // Reset the form state to initial values or clear existing data
+    setQuery(initState);
+    setSelectedImage(null);
+    // Clear the existing work, education, project, and skill data
+    setAddEducation([]);
+    setAddWorkExperience([]);
+    setAddProjectData([]);
+    setAddSkill([]);
   };
 
   const handleAddSkills = () => {
