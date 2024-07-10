@@ -1,6 +1,6 @@
 # Resume builder
 
-Website link: https://free-resume-builder.netlify.app/
+Website link: https://resume-builder-nu-one.vercel.app/
 
  ![Resume builder](./resume-builder.png)
 
